@@ -12,6 +12,8 @@
 @interface RegisterViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *userRegistrationTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordRegistrationTextField;
+@property (strong, nonatomic) IBOutlet UITextField *repeatPasswordRegistrationTextField;
+@property (nonatomic) BOOL segue;
 
 @end
 
@@ -19,21 +21,43 @@
 
 - (IBAction)registerButton:(id)sender {
     
-    PFUser *user = [PFUser user];
-    user.username = self.userRegistrationTextField.text;
-    user.password = self.passwordRegistrationTextField.text;
+    if ([self.passwordRegistrationTextField.text isEqualToString:self.repeatPasswordRegistrationTextField.text]) {
     
-    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
-        if(!error){
-            [self performSegueWithIdentifier:@"SignUp OK" sender:self];
-        }
-        else{
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
-    }];
+            PFUser *user = [PFUser user];
+            user.username = self.userRegistrationTextField.text;
+            user.password = self.passwordRegistrationTextField.text;
+            
+            [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+                if(!error){
+                    [self performSegueWithIdentifier:@"SignUp OK" sender:self];
+                }
+                else{
+                    [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                    self.segue = NO;
+                }
+            }];
+    }
+    else{
+        UIAlertView *noMatchAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"The passwords do not match." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [noMatchAlert show];
+        self.segue = NO;
+
+        
+    }
     
     
 }
+
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if([identifier isEqualToString:@"SignUp OK"])
+    {
+        return self.segue;
+    }
+    return YES;
+}
+
+
 
 
 
