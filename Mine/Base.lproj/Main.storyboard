@@ -44,7 +44,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="f5t-T3-CJi" kind="push" id="e2M-on-2FC"/>
+                                    <segue destination="f5t-T3-CJi" kind="show" id="e2M-on-2FC"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lsl-Yv-h2a">
@@ -53,13 +53,18 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ddK-eo-8IS" kind="push" id="Bjj-oC-lJO"/>
+                                    <action selector="signInButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="2ZC-vx-yvn"/>
+                                    <segue destination="ddK-eo-8IS" kind="show" identifier="SignIn OK" id="Bjj-oC-lJO"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90351062581860297" green="1" blue="0.44810552877250476" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Welcome to Mine" id="uvV-UR-80K"/>
+                    <connections>
+                        <outlet property="passwordTextField" destination="VpO-Pj-BxJ" id="Fao-VU-lHA"/>
+                        <outlet property="userTextField" destination="e9R-MX-6fQ" id="jW6-CS-DfY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
@@ -87,7 +92,7 @@
         <!--Registration-->
         <scene sceneID="u3B-Ut-EFb">
             <objects>
-                <viewController id="f5t-T3-CJi" sceneMemberID="viewController">
+                <viewController id="f5t-T3-CJi" customClass="RegisterViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ytc-59-EXZ"/>
                         <viewControllerLayoutGuide type="bottom" id="kYs-cX-xyx"/>
@@ -112,13 +117,18 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ddK-eo-8IS" kind="push" id="GUJ-lJ-zUa"/>
+                                    <action selector="registerButton:" destination="f5t-T3-CJi" eventType="touchUpInside" id="HFi-8e-Oim"/>
+                                    <segue destination="ddK-eo-8IS" kind="show" id="GUJ-lJ-zUa"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90351062579999997" green="1" blue="0.44810552879999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Registration" id="3Rt-tn-dh3"/>
+                    <connections>
+                        <outlet property="passwordRegistrationTextField" destination="2PD-uT-dDk" id="bvc-ko-fam"/>
+                        <outlet property="userRegistrationTextField" destination="SP9-6D-bNx" id="LSR-v2-mhL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9VN-IH-acn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -145,6 +155,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="GUJ-lJ-zUa"/>
+        <segue reference="Bjj-oC-lJO"/>
     </inferredMetricsTieBreakers>
 </document>

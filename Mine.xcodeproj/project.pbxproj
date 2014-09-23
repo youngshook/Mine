@@ -15,6 +15,7 @@
 		C161A6C819D1D2E5008F2680 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C161A6C619D1D2E5008F2680 /* LaunchScreen.xib */; };
 		C161A6D419D1D2E5008F2680 /* MineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6D319D1D2E5008F2680 /* MineTests.m */; };
 		C161A6E519D1D63B008F2680 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6E419D1D63B008F2680 /* WelcomeViewController.m */; };
+		C161A6E819D1DBFA008F2680 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6E719D1DBFA008F2680 /* RegisterViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,8 @@
 		C161A6E019D1D593008F2680 /* AppUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtilities.h; sourceTree = "<group>"; };
 		C161A6E319D1D63B008F2680 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WelcomeViewController.h; path = ViewControllers/WelcomeViewController.h; sourceTree = "<group>"; };
 		C161A6E419D1D63B008F2680 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WelcomeViewController.m; path = ViewControllers/WelcomeViewController.m; sourceTree = "<group>"; };
+		C161A6E619D1DBFA008F2680 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = ViewControllers/RegisterViewController.h; sourceTree = "<group>"; };
+		C161A6E719D1DBFA008F2680 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = ViewControllers/RegisterViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +142,8 @@
 			children = (
 				C161A6E319D1D63B008F2680 /* WelcomeViewController.h */,
 				C161A6E419D1D63B008F2680 /* WelcomeViewController.m */,
+				C161A6E619D1DBFA008F2680 /* RegisterViewController.h */,
+				C161A6E719D1DBFA008F2680 /* RegisterViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -289,6 +294,7 @@
 				C161A6E519D1D63B008F2680 /* WelcomeViewController.m in Sources */,
 				C161A6BD19D1D2E5008F2680 /* AppDelegate.m in Sources */,
 				C161A6BA19D1D2E5008F2680 /* main.m in Sources */,
+				C161A6E819D1DBFA008F2680 /* RegisterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

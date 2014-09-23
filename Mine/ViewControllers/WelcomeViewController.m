@@ -9,12 +9,20 @@
 #import "WelcomeViewController.h"
 
 @interface WelcomeViewController ()
+@property (strong, nonatomic) IBOutlet UITextField *userTextField;
+@property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 
 @end
 
 @implementation WelcomeViewController
 
-- (void)viewDidLoad {
+- (IBAction)signInButton:(id)sender {
+}
+
+
+
+
+/*- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
@@ -24,7 +32,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
