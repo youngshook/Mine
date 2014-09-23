@@ -158,7 +158,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Item" id="gNi-iR-gTG">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="JQe-ve-9m7"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="JQe-ve-9m7">
+                            <connections>
+                                <action selector="saveItemOnParse:" destination="zcN-Bp-5tQ" id="1Ce-yy-I1i"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="dateTextField" destination="nXV-wT-8ML" id="Jpy-h0-rh3"/>

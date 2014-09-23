@@ -7,6 +7,7 @@
 //
 
 #import "AddViewController.h"
+#import <Parse/Parse.h>
 
 @interface AddViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *titleTextField;
@@ -16,6 +17,29 @@
 @end
 
 @implementation AddViewController
+
+#pragma mark - button
+
+- (IBAction)saveItemOnParse:(UIBarButtonItem *)sender {
+    
+    PFObject *itemToAdd = [PFObject objectWithClassName:@"Items"];
+    [itemToAdd setObject:self.titleTextField.text forKey:@"Title"];
+    [itemToAdd setObject:self.dateTextField.text forKey:@"Date"];
+    [itemToAdd setObject:self.descriptionTextView.text forKey:@"Description"];
+    [itemToAdd setObject:[PFUser currentUser].username forKey:@"User"];
+    
+    [itemToAdd saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            NSLog(@"Item added");
+        } else {
+            UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error adding the item to the list. Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [error show];
+        }
+    }];
+}
+
+
+#pragma mark - implementation
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,8 +76,6 @@
     [self.descriptionTextView resignFirstResponder];
     [self.titleTextField resignFirstResponder];
     [self.dateTextField resignFirstResponder];
-
-
 
 }
 
