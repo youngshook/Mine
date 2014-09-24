@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WallViewController : UIViewController
+@interface WallViewController : UIViewController <UIAlertViewDelegate>
 
 @end

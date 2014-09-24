@@ -7,12 +7,27 @@
 //
 
 #import "WallViewController.h"
+#import <Parse/Parse.h>
 
-@interface WallViewController ()
+@interface WallViewController () 
 
 @end
 
 @implementation WallViewController
+
+- (IBAction)logOutButton:(UIBarButtonItem *)sender {
+    
+    UIAlertView *logOut = [[UIAlertView alloc]initWithTitle:@"Log Out" message:@"Do you want to Log Out?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Log Out", nil];
+    [logOut show];
+}
+
+- (void)alertView:(UIAlertView *)alertView
+clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1){
+        [PFUser logOut];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

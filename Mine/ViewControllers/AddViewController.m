@@ -31,7 +31,6 @@
     [itemToAdd saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             NSLog(@"Item added");
-            NSLog(@"%@", [self.navigationController description]);
             [self.navigationController popViewControllerAnimated:YES];
         } else {
             UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error adding the item to the list. Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];

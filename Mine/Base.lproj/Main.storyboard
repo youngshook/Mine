@@ -90,7 +90,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Wall" id="2pI-23-FRU">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="z2B-nJ-EfB"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="z2B-nJ-EfB">
+                            <connections>
+                                <action selector="logOutButton:" destination="ddK-eo-8IS" id="lpU-ru-Fkh"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="+  " id="yMU-3v-8Yi">
                             <connections>
                                 <segue destination="zcN-Bp-5tQ" kind="show" id="wga-K0-0Bm"/>
