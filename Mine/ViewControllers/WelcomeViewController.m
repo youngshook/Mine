@@ -41,15 +41,28 @@
     return YES;
 }
 
+#pragma mark - Initialization
 
 
-
-/*- (void)viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+
 }
 
-- (void)didReceiveMemoryWarning {
+-(void) dismissKeyboard{
+    [self.userTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+    
+}
+
+/*- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

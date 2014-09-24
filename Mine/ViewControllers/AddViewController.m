@@ -32,11 +32,20 @@
         if (!error) {
             NSLog(@"Item added");
             [self.navigationController popViewControllerAnimated:YES];
+            UIAlertView *added = [[UIAlertView alloc]initWithTitle:@"The item was added" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            [added show];
+            [self performSelector:@selector(dismiss:) withObject:added afterDelay:2];
         } else {
             UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error adding the item to the list. Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [error show];
         }
     }];
+    
+    
+}
+
+-(void) dismiss:(UIAlertView *)alert{
+    [alert dismissWithClickedButtonIndex:-1 animated:YES];
 }
 
 

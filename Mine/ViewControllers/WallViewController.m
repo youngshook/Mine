@@ -17,12 +17,11 @@
 
 - (IBAction)logOutButton:(UIBarButtonItem *)sender {
     
-    UIAlertView *logOut = [[UIAlertView alloc]initWithTitle:@"Log Out" message:@"Do you want to Log Out?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Log Out", nil];
+    UIAlertView *logOut = [[UIAlertView alloc]initWithTitle:@"Do you want to Log Out?" message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Log Out", nil];
     [logOut show];
 }
 
-- (void)alertView:(UIAlertView *)alertView
-clickedButtonAtIndex:(NSInteger)buttonIndex{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1){
         [PFUser logOut];
         [self.navigationController popViewControllerAnimated:YES];
