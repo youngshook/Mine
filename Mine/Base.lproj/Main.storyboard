@@ -93,7 +93,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="z2B-nJ-EfB"/>
                         <barButtonItem key="rightBarButtonItem" title="+  " id="yMU-3v-8Yi">
                             <connections>
-                                <segue destination="3tI-Aj-Wyx" kind="show" identifier="Add Item" id="a8V-cR-w2H"/>
+                                <segue destination="zcN-Bp-5tQ" kind="show" id="wga-K0-0Bm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -172,7 +172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sZz-tG-QkY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1651" y="-377"/>
+            <point key="canvasLocation" x="1184" y="-377"/>
         </scene>
         <!--Registration-->
         <scene sceneID="u3B-Ut-EFb">
@@ -243,24 +243,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="avG-qU-Lzd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-299" y="-377"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="j4b-VK-627">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3tI-Aj-Wyx" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Q6h-6b-g85">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="zcN-Bp-5tQ" kind="relationship" relationship="rootViewController" id="Ist-h7-xW0"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="b0Y-XF-3MK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1168" y="-377"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

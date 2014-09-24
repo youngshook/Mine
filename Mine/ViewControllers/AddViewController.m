@@ -31,6 +31,8 @@
     [itemToAdd saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             NSLog(@"Item added");
+            NSLog(@"%@", [self.navigationController description]);
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error adding the item to the list. Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [error show];
@@ -67,7 +69,7 @@
 {
     UIDatePicker *picker = (UIDatePicker*)self.dateTextField.inputView;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"hh:mm - dd/MM/yyyy"];
+    [formatter setDateFormat:@"HH:mm - dd/MM/yyyy"];
     self.dateTextField.text = [NSString stringWithFormat:@"%@",[formatter stringFromDate:picker.date]];
 }
 
