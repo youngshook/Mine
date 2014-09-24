@@ -79,9 +79,20 @@
     }
     
     // Configure the cell to show todo item with a priority at the bottom
+    NSString *currentUser = [NSString stringWithFormat:@"%@", [PFUser currentUser].username];
+    NSString *otherUser = [NSString stringWithFormat:@"%@", [object objectForKey:@"User"]];
+    NSString *detailText;
+    BOOL isEqual = [currentUser isEqualToString:otherUser];
+    
+    if(isEqual){
+        detailText = [NSString stringWithFormat:@"Due Date: %@",[object objectForKey:@"Date"]];
+    }
+    else{
+        detailText = [NSString stringWithFormat:@"Due Date: %@  |  %@",[object objectForKey:@"Date"], [object objectForKey:@"User"]];
+    }
+    
     cell.textLabel.text = [object objectForKey:@"Title"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ | Due Date: %@",
-                                 [object objectForKey:@"User"], [object objectForKey:@"Date"]];
+    cell.detailTextLabel.text = detailText;
     
     return cell;
 }
