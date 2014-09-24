@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6356FCF7250845718F4ED4BF /* libPods-Mine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8840D143D1A9437096DB431F /* libPods-Mine.a */; };
+		C1271A8919D335EA00BC03FB /* WallTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1271A8819D335EA00BC03FB /* WallTableViewController.m */; };
 		C161A6BA19D1D2E5008F2680 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6B919D1D2E5008F2680 /* main.m */; };
 		C161A6BD19D1D2E5008F2680 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6BC19D1D2E5008F2680 /* AppDelegate.m */; };
 		C161A6C319D1D2E5008F2680 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C161A6C119D1D2E5008F2680 /* Main.storyboard */; };
@@ -16,7 +17,6 @@
 		C161A6D419D1D2E5008F2680 /* MineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6D319D1D2E5008F2680 /* MineTests.m */; };
 		C161A6E519D1D63B008F2680 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6E419D1D63B008F2680 /* WelcomeViewController.m */; };
 		C161A6E819D1DBFA008F2680 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6E719D1DBFA008F2680 /* RegisterViewController.m */; };
-		C161A6EB19D1E5C9008F2680 /* WallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6EA19D1E5C9008F2680 /* WallViewController.m */; };
 		C1B53C3219D1EB22002FFA5C /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B53C3119D1EB22002FFA5C /* AddViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +33,8 @@
 /* Begin PBXFileReference section */
 		8840D143D1A9437096DB431F /* libPods-Mine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC52192AAD88441DAACD07D1 /* Pods-Mine.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mine.xcconfig"; path = "Pods/Pods-Mine.xcconfig"; sourceTree = "<group>"; };
+		C1271A8719D335EA00BC03FB /* WallTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WallTableViewController.h; path = ViewControllers/WallTableViewController.h; sourceTree = "<group>"; };
+		C1271A8819D335EA00BC03FB /* WallTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WallTableViewController.m; path = ViewControllers/WallTableViewController.m; sourceTree = "<group>"; };
 		C161A6B419D1D2E5008F2680 /* Mine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C161A6B819D1D2E5008F2680 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C161A6B919D1D2E5008F2680 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -49,8 +51,6 @@
 		C161A6E419D1D63B008F2680 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WelcomeViewController.m; path = ViewControllers/WelcomeViewController.m; sourceTree = "<group>"; };
 		C161A6E619D1DBFA008F2680 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterViewController.h; path = ViewControllers/RegisterViewController.h; sourceTree = "<group>"; };
 		C161A6E719D1DBFA008F2680 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = ViewControllers/RegisterViewController.m; sourceTree = "<group>"; };
-		C161A6E919D1E5C9008F2680 /* WallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WallViewController.h; path = ViewControllers/WallViewController.h; sourceTree = "<group>"; };
-		C161A6EA19D1E5C9008F2680 /* WallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WallViewController.m; path = ViewControllers/WallViewController.m; sourceTree = "<group>"; };
 		C1B53C3019D1EB22002FFA5C /* AddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddViewController.h; path = ViewControllers/AddViewController.h; sourceTree = "<group>"; };
 		C1B53C3119D1EB22002FFA5C /* AddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddViewController.m; path = ViewControllers/AddViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,10 +150,10 @@
 				C161A6E419D1D63B008F2680 /* WelcomeViewController.m */,
 				C161A6E619D1DBFA008F2680 /* RegisterViewController.h */,
 				C161A6E719D1DBFA008F2680 /* RegisterViewController.m */,
-				C161A6E919D1E5C9008F2680 /* WallViewController.h */,
-				C161A6EA19D1E5C9008F2680 /* WallViewController.m */,
 				C1B53C3019D1EB22002FFA5C /* AddViewController.h */,
 				C1B53C3119D1EB22002FFA5C /* AddViewController.m */,
+				C1271A8719D335EA00BC03FB /* WallTableViewController.h */,
+				C1271A8819D335EA00BC03FB /* WallTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -305,8 +305,8 @@
 				C161A6BD19D1D2E5008F2680 /* AppDelegate.m in Sources */,
 				C1B53C3219D1EB22002FFA5C /* AddViewController.m in Sources */,
 				C161A6BA19D1D2E5008F2680 /* main.m in Sources */,
-				C161A6EB19D1E5C9008F2680 /* WallViewController.m in Sources */,
 				C161A6E819D1DBFA008F2680 /* RegisterViewController.m in Sources */,
+				C1271A8919D335EA00BC03FB /* WallTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
