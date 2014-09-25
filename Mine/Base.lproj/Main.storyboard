@@ -57,11 +57,16 @@
                                     <segue destination="7ye-no-nOh" kind="show" identifier="SignIn OK" id="cP1-2v-64q"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ILE-nA-50C">
+                                <rect key="frame" x="192" y="198" width="20" height="20"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.90351062581860297" green="1" blue="0.44810552877250476" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Welcome to Mine" id="uvV-UR-80K"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="ILE-nA-50C" id="DB1-lT-MWd"/>
                         <outlet property="passwordTextField" destination="VpO-Pj-BxJ" id="Fao-VU-lHA"/>
                         <outlet property="userTextField" destination="e9R-MX-6fQ" id="jW6-CS-DfY"/>
                     </connections>
@@ -117,7 +122,7 @@
                         <barButtonItem key="rightBarButtonItem" title="+   " id="Nft-sA-8pB">
                             <connections>
                                 <action selector="addItemButton:" destination="7ye-no-nOh" id="Xd2-D4-oSU"/>
-                                <segue destination="zcN-Bp-5tQ" kind="show" id="E3U-eQ-cWR"/>
+                                <segue destination="zcN-Bp-5tQ" kind="show" identifier="Add Item" id="E3U-eQ-cWR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -338,7 +343,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="QzT-6R-u2V"/>
+        <segue reference="E3U-eQ-cWR"/>
         <segue reference="cP1-2v-64q"/>
     </inferredMetricsTieBreakers>
 </document>

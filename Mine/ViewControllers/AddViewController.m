@@ -23,24 +23,55 @@
 
 - (IBAction)saveItemOnParse:(UIBarButtonItem *)sender {
     
-    PFObject *itemToAdd = [PFObject objectWithClassName:@"Items"];
-    [itemToAdd setObject:self.titleTextField.text forKey:@"Title"];
-    [itemToAdd setObject:self.dateTextField.text forKey:@"Date"];
-    [itemToAdd setObject:self.descriptionTextView.text forKey:@"Description"];
-    [itemToAdd setObject:[PFUser currentUser].username forKey:@"User"];
-    
-    [itemToAdd saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            NSLog(@"Item added");
-            [self.navigationController popViewControllerAnimated:YES];
-            UIAlertView *added = [[UIAlertView alloc]initWithTitle:@"The item was added" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-            [added show];
-            [self performSelector:@selector(dismiss:) withObject:added afterDelay:2];
-        } else {
-            UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error adding the item to the list. Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [error show];
-        }
-    }];
+    //SAVING!!!
+    if(!self.updatingObject){
+        PFObject *itemToAdd = [PFObject objectWithClassName:@"Items"];
+        [itemToAdd setObject:self.titleTextField.text forKey:@"Title"];
+        [itemToAdd setObject:self.dateTextField.text forKey:@"Date"];
+        [itemToAdd setObject:self.descriptionTextView.text forKey:@"Description"];
+        [itemToAdd setObject:[PFUser currentUser].username forKey:@"User"];
+        
+        [itemToAdd saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                NSLog(@"Item added");
+                [self.navigationController popViewControllerAnimated:YES];
+                UIAlertView *added = [[UIAlertView alloc]initWithTitle:@"The item was added" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                [added show];
+                [self performSelector:@selector(dismiss:) withObject:added afterDelay:2];
+            } else {
+                UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error adding the item to the list. Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [error show];
+            }
+        }];
+    }
+    else if (self.updatingObject){
+        PFQuery *query = [PFQuery queryWithClassName:@"Items"];
+        [query whereKey:@"User" equalTo:self.userForLabel];
+        [query whereKey:@"Title" equalTo:self.titleForLabel];
+        [query whereKey:@"Date" equalTo:self.dateForLabel];
+        [query whereKey:@"Description" equalTo:self.descriptionForLabel];
+        [query getFirstObjectInBackgroundWithBlock:^(PFObject * object, NSError *error) {
+            if (!error) {
+                // Found UserStats
+                [object setObject:self.titleTextField.text forKey:@"Title"];
+                [object setObject:self.dateTextField.text forKey:@"Date"];
+                [object setObject:self.descriptionTextView.text forKey:@"Description"];
+                
+                // Save
+                [object saveInBackground];
+                NSLog(@"Item updated");
+                [self.navigationController popViewControllerAnimated:YES];
+                [self.navigationController popViewControllerAnimated:YES];
+                UIAlertView *added = [[UIAlertView alloc]initWithTitle:@"The item was updated" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                [added show];
+                [self performSelector:@selector(dismiss:) withObject:added afterDelay:2];
+            } else {
+                // Did not find any UserStats for the current user
+                UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error adding the item to the list. Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [error show];
+            }
+        }];
+    }
     
     
 }
@@ -52,13 +83,22 @@
 
 #pragma mark - implementation
 
+-(void) viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        // back button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+        self.descriptionForLabel = nil;
+        self.titleForLabel = nil;
+        self.dateForLabel = nil;
+        self.userForLabel = nil;
+    }
+    [super viewWillDisappear:animated];
+}
+
 -(void)updateUI{
     self.descriptionTextView.text = self.descriptionForLabel;
-    self.descriptionForLabel = nil;
     self.titleTextField.text = self.titleForLabel;
-    self.titleForLabel = nil;
     self.dateTextField.text = self.dateForLabel;
-    self.dateForLabel = nil;
 }
 
 - (void)viewDidLoad {

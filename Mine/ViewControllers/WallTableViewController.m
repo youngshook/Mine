@@ -8,6 +8,7 @@
 
 #import "WallTableViewController.h"
 #import "DetailViewController.h"
+#import "AddViewController.h"
 #import <Parse/Parse.h>
 
 @interface WallTableViewController ()
@@ -111,31 +112,49 @@
             dvc.titleForLabel = [objectAtRow objectForKey:@"Title"];
             dvc.dateForLabel = [objectAtRow objectForKey:@"Date"];
             dvc.descriptionForLabel = [objectAtRow objectForKey:@"Description"];
+            dvc.userForLabel = [objectAtRow objectForKey:@"User"];
             
         }
+    }
+    else if ([segue.identifier isEqualToString:@"Add Item"]){
+        if ([segue.destinationViewController isKindOfClass:[AddViewController class]]) {
+            AddViewController *avc = (AddViewController *)segue.destinationViewController;
+            
+            avc.updatingObject = NO;
+        }
+
     }
 }
 
 
 #pragma mark - System
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self.navigationItem setHidesBackButton:YES];//Deletes Back button
-    [self askForPermissions];
-}
-
 -(void)updateUI{
     [self loadObjects];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[self.objects count]];
-    NSLog(@"Done: self.objects count: %lu", (unsigned long)[self.objects count]);
-
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Items"];
+    [query whereKey:@"User" equalTo:[PFUser currentUser].username];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[objects count]];
+        }
+        else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
 }
 
 -(void)askForPermissions{
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self.navigationItem setHidesBackButton:YES];//Deletes Back button
+    [self askForPermissions];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -148,14 +167,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
+/*-(void) viewWillDisappear:(BOOL)animated {
+ if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+ // back button was pressed.  We know this is true because self is no longer
+ // in the navigation stack.
+ [self updateUI];
+ }
+ [super viewWillDisappear:animated];
+ }
 */
 
 @end

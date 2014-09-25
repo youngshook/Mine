@@ -10,11 +10,11 @@ This is a personal project, an app with a Parse Backend.
 * CocoaPods
 * User authentication
 * Badge with items counter
+*  Detailed Item visualization
+* Edit Item from Detaled Item Visualization
 
 ***Planned features:***
 
-* Detailed Item visualization
-* Edit Item from Detaled Item Visualization
 * Other's items visualization ("Contacts")
 * Accept/decline contacts
 

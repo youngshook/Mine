@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSString *titleForLabel;
 @property (strong, nonatomic) NSString *dateForLabel;
 @property (strong, nonatomic) NSString *descriptionForLabel;
+@property (strong, nonatomic) NSString *userForLabel;
 
 
 @end

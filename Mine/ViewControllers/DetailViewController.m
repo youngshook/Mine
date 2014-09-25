@@ -42,7 +42,8 @@
             avc.titleForLabel = self.titleLabel.text;
             avc.dateForLabel = self.dateLabel.text;
             avc.descriptionForLabel = self.descriptionTextView.text;
-            
+            avc.userForLabel = self.userForLabel;
+            avc.updatingObject = YES;
         }
     }
 }
