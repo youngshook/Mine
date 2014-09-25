@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 
 @interface AddViewController ()
+
 @property (strong, nonatomic) IBOutlet UITextField *titleTextField;
 @property (strong, nonatomic) IBOutlet UITextField *dateTextField;
 @property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
@@ -51,9 +52,20 @@
 
 #pragma mark - implementation
 
+-(void)updateUI{
+    self.descriptionTextView.text = self.descriptionForLabel;
+    self.descriptionForLabel = nil;
+    self.titleTextField.text = self.titleForLabel;
+    self.titleForLabel = nil;
+    self.dateTextField.text = self.dateForLabel;
+    self.dateForLabel = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self updateUI];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self

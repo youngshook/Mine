@@ -18,6 +18,7 @@
 		C161A6E519D1D63B008F2680 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6E419D1D63B008F2680 /* WelcomeViewController.m */; };
 		C161A6E819D1DBFA008F2680 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6E719D1DBFA008F2680 /* RegisterViewController.m */; };
 		C1B53C3219D1EB22002FFA5C /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B53C3119D1EB22002FFA5C /* AddViewController.m */; };
+		C1CC411319D448EC00DE749A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC411219D448EC00DE749A /* DetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		C161A6E719D1DBFA008F2680 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = ViewControllers/RegisterViewController.m; sourceTree = "<group>"; };
 		C1B53C3019D1EB22002FFA5C /* AddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddViewController.h; path = ViewControllers/AddViewController.h; sourceTree = "<group>"; };
 		C1B53C3119D1EB22002FFA5C /* AddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddViewController.m; path = ViewControllers/AddViewController.m; sourceTree = "<group>"; };
+		C1CC411119D448EC00DE749A /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ViewControllers/DetailViewController.h; sourceTree = "<group>"; };
+		C1CC411219D448EC00DE749A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ViewControllers/DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,10 +153,12 @@
 				C161A6E419D1D63B008F2680 /* WelcomeViewController.m */,
 				C161A6E619D1DBFA008F2680 /* RegisterViewController.h */,
 				C161A6E719D1DBFA008F2680 /* RegisterViewController.m */,
-				C1B53C3019D1EB22002FFA5C /* AddViewController.h */,
-				C1B53C3119D1EB22002FFA5C /* AddViewController.m */,
 				C1271A8719D335EA00BC03FB /* WallTableViewController.h */,
 				C1271A8819D335EA00BC03FB /* WallTableViewController.m */,
+				C1B53C3019D1EB22002FFA5C /* AddViewController.h */,
+				C1B53C3119D1EB22002FFA5C /* AddViewController.m */,
+				C1CC411119D448EC00DE749A /* DetailViewController.h */,
+				C1CC411219D448EC00DE749A /* DetailViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -217,6 +222,11 @@
 				TargetAttributes = {
 					C161A6B319D1D2E5008F2680 = {
 						CreatedOnToolsVersion = 6.0.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 					C161A6CC19D1D2E5008F2680 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -307,6 +317,7 @@
 				C161A6BA19D1D2E5008F2680 /* main.m in Sources */,
 				C161A6E819D1DBFA008F2680 /* RegisterViewController.m in Sources */,
 				C1271A8919D335EA00BC03FB /* WallTableViewController.m in Sources */,
+				C1CC411319D448EC00DE749A /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

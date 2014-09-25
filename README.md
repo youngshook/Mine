@@ -7,8 +7,9 @@ This is a personal project, an app with a Parse Backend.
 
 * Multiple VC
 * Parse Database
+* CocoaPods
 * User authentication
-* Badge number
+* Badge with items counter
 
 ***Planned features:***
 

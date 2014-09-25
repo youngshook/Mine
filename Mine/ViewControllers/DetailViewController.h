@@ -1,17 +1,18 @@
 //
-//  AddViewController.h
+//  DetailViewController.h
 //  Mine
 //
-//  Created by Pol Quintana on 23/09/14.
+//  Created by Pol Quintana on 25/09/14.
 //  Copyright (c) 2014 Pol Quintana. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface AddViewController : UIViewController
+@interface DetailViewController : UIViewController
 
 @property (strong, nonatomic) NSString *titleForLabel;
 @property (strong, nonatomic) NSString *dateForLabel;
 @property (strong, nonatomic) NSString *descriptionForLabel;
+
 
 @end

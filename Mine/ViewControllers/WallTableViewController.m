@@ -7,6 +7,7 @@
 //
 
 #import "WallTableViewController.h"
+#import "DetailViewController.h"
 #import <Parse/Parse.h>
 
 @interface WallTableViewController ()
@@ -95,6 +96,24 @@
     cell.detailTextLabel.text = detailText;
     
     return cell;
+}
+
+#pragma mark - Prepare for Segue
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    
+    if ([segue.identifier isEqualToString:@"Cell Detail"]) {
+        if ([segue.destinationViewController isKindOfClass:[DetailViewController class]]) {
+            DetailViewController *dvc = (DetailViewController *)segue.destinationViewController;
+            PFObject *objectAtRow = [self.objects objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+            
+            dvc.titleForLabel = [objectAtRow objectForKey:@"Title"];
+            dvc.dateForLabel = [objectAtRow objectForKey:@"Date"];
+            dvc.descriptionForLabel = [objectAtRow objectForKey:@"Description"];
+            
+        }
+    }
 }
 
 
