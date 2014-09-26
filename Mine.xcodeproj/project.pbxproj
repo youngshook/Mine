@@ -18,6 +18,11 @@
 		C161A6E519D1D63B008F2680 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6E419D1D63B008F2680 /* WelcomeViewController.m */; };
 		C161A6E819D1DBFA008F2680 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6E719D1DBFA008F2680 /* RegisterViewController.m */; };
 		C1B53C3219D1EB22002FFA5C /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B53C3119D1EB22002FFA5C /* AddViewController.m */; };
+		C1B9C38819D5774700714422 /* RERootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9C38719D5774700714422 /* RERootViewController.m */; };
+		C1B9C38E19D5785600714422 /* RENavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9C38D19D5785600714422 /* RENavigationViewController.m */; };
+		C1B9C39119D57D6700714422 /* REMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9C39019D57D6700714422 /* REMenuTableViewController.m */; };
+		C1B9C39719D5829600714422 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9C39619D5829600714422 /* ContactsViewController.m */; };
+		C1B9C39A19D58A5D00714422 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9C39919D58A5D00714422 /* UserViewController.m */; };
 		C1CC411319D448EC00DE749A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC411219D448EC00DE749A /* DetailViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +59,16 @@
 		C161A6E719D1DBFA008F2680 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = ViewControllers/RegisterViewController.m; sourceTree = "<group>"; };
 		C1B53C3019D1EB22002FFA5C /* AddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddViewController.h; path = ViewControllers/AddViewController.h; sourceTree = "<group>"; };
 		C1B53C3119D1EB22002FFA5C /* AddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddViewController.m; path = ViewControllers/AddViewController.m; sourceTree = "<group>"; };
+		C1B9C38619D5774700714422 /* RERootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RERootViewController.h; path = REFrostedViewControllers/RERootViewController.h; sourceTree = "<group>"; };
+		C1B9C38719D5774700714422 /* RERootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RERootViewController.m; path = REFrostedViewControllers/RERootViewController.m; sourceTree = "<group>"; };
+		C1B9C38C19D5785600714422 /* RENavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RENavigationViewController.h; path = REFrostedViewControllers/RENavigationViewController.h; sourceTree = "<group>"; };
+		C1B9C38D19D5785600714422 /* RENavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RENavigationViewController.m; path = REFrostedViewControllers/RENavigationViewController.m; sourceTree = "<group>"; };
+		C1B9C38F19D57D6700714422 /* REMenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = REMenuTableViewController.h; path = REFrostedViewControllers/REMenuTableViewController.h; sourceTree = "<group>"; };
+		C1B9C39019D57D6700714422 /* REMenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = REMenuTableViewController.m; path = REFrostedViewControllers/REMenuTableViewController.m; sourceTree = "<group>"; };
+		C1B9C39519D5829600714422 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsViewController.h; path = ViewControllers/ContactsViewController.h; sourceTree = "<group>"; };
+		C1B9C39619D5829600714422 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsViewController.m; path = ViewControllers/ContactsViewController.m; sourceTree = "<group>"; };
+		C1B9C39819D58A5D00714422 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserViewController.h; path = ViewControllers/UserViewController.h; sourceTree = "<group>"; };
+		C1B9C39919D58A5D00714422 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserViewController.m; path = ViewControllers/UserViewController.m; sourceTree = "<group>"; };
 		C1CC411119D448EC00DE749A /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ViewControllers/DetailViewController.h; sourceTree = "<group>"; };
 		C1CC411219D448EC00DE749A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ViewControllers/DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,6 +116,7 @@
 		C161A6B619D1D2E5008F2680 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				C1B9C38519D576DE00714422 /* REFrostedViewControllers */,
 				C161A6DF19D1D30D008F2680 /* ViewControllers */,
 				C161A6DD19D1D2EE008F2680 /* Model */,
 				C161A6BB19D1D2E5008F2680 /* AppDelegate.h */,
@@ -159,8 +175,25 @@
 				C1B53C3119D1EB22002FFA5C /* AddViewController.m */,
 				C1CC411119D448EC00DE749A /* DetailViewController.h */,
 				C1CC411219D448EC00DE749A /* DetailViewController.m */,
+				C1B9C39519D5829600714422 /* ContactsViewController.h */,
+				C1B9C39619D5829600714422 /* ContactsViewController.m */,
+				C1B9C39819D58A5D00714422 /* UserViewController.h */,
+				C1B9C39919D58A5D00714422 /* UserViewController.m */,
 			);
 			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		C1B9C38519D576DE00714422 /* REFrostedViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C1B9C38619D5774700714422 /* RERootViewController.h */,
+				C1B9C38719D5774700714422 /* RERootViewController.m */,
+				C1B9C38C19D5785600714422 /* RENavigationViewController.h */,
+				C1B9C38D19D5785600714422 /* RENavigationViewController.m */,
+				C1B9C38F19D57D6700714422 /* REMenuTableViewController.h */,
+				C1B9C39019D57D6700714422 /* REMenuTableViewController.m */,
+			);
+			name = REFrostedViewControllers;
 			sourceTree = "<group>";
 		};
 		C400DB9C7D7342798B2D794C /* Frameworks */ = {
@@ -311,11 +344,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1B9C39719D5829600714422 /* ContactsViewController.m in Sources */,
+				C1B9C38E19D5785600714422 /* RENavigationViewController.m in Sources */,
+				C1B9C39119D57D6700714422 /* REMenuTableViewController.m in Sources */,
 				C161A6E519D1D63B008F2680 /* WelcomeViewController.m in Sources */,
 				C161A6BD19D1D2E5008F2680 /* AppDelegate.m in Sources */,
 				C1B53C3219D1EB22002FFA5C /* AddViewController.m in Sources */,
+				C1B9C38819D5774700714422 /* RERootViewController.m in Sources */,
 				C161A6BA19D1D2E5008F2680 /* main.m in Sources */,
 				C161A6E819D1DBFA008F2680 /* RegisterViewController.m in Sources */,
+				C1B9C39A19D58A5D00714422 /* UserViewController.m in Sources */,
 				C1271A8919D335EA00BC03FB /* WallTableViewController.m in Sources */,
 				C1CC411319D448EC00DE749A /* DetailViewController.m in Sources */,
 			);

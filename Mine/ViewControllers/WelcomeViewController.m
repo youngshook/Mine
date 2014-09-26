@@ -52,6 +52,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];

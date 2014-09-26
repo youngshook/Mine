@@ -7,7 +7,11 @@
 //
 
 #import <Parse/Parse.h>
+#import <UIKit/UIKit.h>
+#import <REFrostedViewController.h>
 
 @interface WallTableViewController : PFQueryTableViewController
+
+- (IBAction)showMenu:(UIBarButtonItem *)sender;
 
 @end

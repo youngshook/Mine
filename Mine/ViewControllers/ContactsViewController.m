@@ -1,23 +1,23 @@
 //
-//  WallTableViewController.m
+//  ContactsViewController.m
 //  Mine
 //
-//  Created by Pol Quintana on 24/09/14.
+//  Created by Pol Quintana on 26/09/14.
 //  Copyright (c) 2014 Pol Quintana. All rights reserved.
 //
 
-#import "WallTableViewController.h"
-#import "DetailViewController.h"
-#import "AddViewController.h"
-#import <Parse/Parse.h>
+#import "ContactsViewController.h"
 
-@interface WallTableViewController ()
+@interface ContactsViewController ()
 
 @end
 
-@implementation WallTableViewController
+@implementation ContactsViewController
 
 #pragma mark - ButtonActions
+
+
+
 - (IBAction)showMenu:(UIBarButtonItem *)sender {
     // Dismiss keyboard (optional)
     //
@@ -30,20 +30,20 @@
 }
 
 /*- (IBAction)logOutButton:(UIBarButtonItem *)sender {
-    
-    UIAlertView *logOut = [[UIAlertView alloc]initWithTitle:@"Do you want to Log Out?" message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Log Out", nil];
-    [logOut show];
-    
-}
-
-//LogOut Verification
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1){
-        [PFUser logOut];
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
+ 
+ UIAlertView *logOut = [[UIAlertView alloc]initWithTitle:@"Do you want to Log Out?" message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Log Out", nil];
+ [logOut show];
+ 
+ }
+ 
+ //LogOut Verification
+ 
+ - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+ if (buttonIndex == 1){
+ [PFUser logOut];
+ [self.navigationController popViewControllerAnimated:YES];
+ }
+ }
  */
 
 - (IBAction)addItemButton:(UIBarButtonItem *)sender {
@@ -65,7 +65,7 @@
 
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryWithClassName:@"Items"];
-//    [query whereKey:@"User" equalTo:[PFUser currentUser].username];
+    //    [query whereKey:@"User" equalTo:[PFUser currentUser].username];
     [query whereKey:@"User" containedIn:[[PFUser currentUser] objectForKey:@"Contacts"]];
     // If no objects are loaded in memory, we look to the cache
     // first to fill the table and then subsequently do a query
@@ -112,7 +112,7 @@
 }
 
 #pragma mark - Prepare for Segue
-
+/*
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     
@@ -134,10 +134,10 @@
             
             avc.updatingObject = NO;
         }
-
+        
     }
 }
-
+*/
 
 #pragma mark - System
 
@@ -187,6 +187,6 @@
  }
  [super viewWillDisappear:animated];
  }
-*/
+ */
 
 @end

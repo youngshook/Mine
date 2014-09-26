@@ -26,7 +26,8 @@
             PFUser *user = [PFUser user];
             user.username = self.userRegistrationTextField.text;
             user.password = self.passwordRegistrationTextField.text;
-            
+            [user setObject:@[@"prova", @"prova"] forKey:@"Contacts"];
+        
             [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
                 if(!error){
                     [self performSegueWithIdentifier:@"SignUp OK" sender:self];

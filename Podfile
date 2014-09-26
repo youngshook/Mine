@@ -4,6 +4,7 @@
 target "Mine" do
 
 pod 'Parse'
+pod 'REFrostedViewController', '~> 2.4.7'
 
 end
 
