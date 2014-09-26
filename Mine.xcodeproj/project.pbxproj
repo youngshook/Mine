@@ -23,6 +23,7 @@
 		C1B9C39119D57D6700714422 /* REMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9C39019D57D6700714422 /* REMenuTableViewController.m */; };
 		C1B9C39719D5829600714422 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9C39619D5829600714422 /* ContactsViewController.m */; };
 		C1B9C39A19D58A5D00714422 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9C39919D58A5D00714422 /* UserViewController.m */; };
+		C1B9C39D19D5AEA800714422 /* ImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9C39C19D5AEA800714422 /* ImagePickerViewController.m */; };
 		C1CC411319D448EC00DE749A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1CC411219D448EC00DE749A /* DetailViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,8 @@
 		C1B9C39619D5829600714422 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsViewController.m; path = ViewControllers/ContactsViewController.m; sourceTree = "<group>"; };
 		C1B9C39819D58A5D00714422 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserViewController.h; path = ViewControllers/UserViewController.h; sourceTree = "<group>"; };
 		C1B9C39919D58A5D00714422 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserViewController.m; path = ViewControllers/UserViewController.m; sourceTree = "<group>"; };
+		C1B9C39B19D5AEA800714422 /* ImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImagePickerViewController.h; path = ViewControllers/ImagePickerViewController.h; sourceTree = "<group>"; };
+		C1B9C39C19D5AEA800714422 /* ImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImagePickerViewController.m; path = ViewControllers/ImagePickerViewController.m; sourceTree = "<group>"; };
 		C1CC411119D448EC00DE749A /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ViewControllers/DetailViewController.h; sourceTree = "<group>"; };
 		C1CC411219D448EC00DE749A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ViewControllers/DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -179,6 +182,8 @@
 				C1B9C39619D5829600714422 /* ContactsViewController.m */,
 				C1B9C39819D58A5D00714422 /* UserViewController.h */,
 				C1B9C39919D58A5D00714422 /* UserViewController.m */,
+				C1B9C39B19D5AEA800714422 /* ImagePickerViewController.h */,
+				C1B9C39C19D5AEA800714422 /* ImagePickerViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -349,6 +354,7 @@
 				C1B9C39119D57D6700714422 /* REMenuTableViewController.m in Sources */,
 				C161A6E519D1D63B008F2680 /* WelcomeViewController.m in Sources */,
 				C161A6BD19D1D2E5008F2680 /* AppDelegate.m in Sources */,
+				C1B9C39D19D5AEA800714422 /* ImagePickerViewController.m in Sources */,
 				C1B53C3219D1EB22002FFA5C /* AddViewController.m in Sources */,
 				C1B9C38819D5774700714422 /* RERootViewController.m in Sources */,
 				C161A6BA19D1D2E5008F2680 /* main.m in Sources */,

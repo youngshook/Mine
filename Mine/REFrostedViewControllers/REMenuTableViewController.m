@@ -15,6 +15,8 @@
 
 @interface REMenuTableViewController ()
 
+@property (nonatomic, strong) UIImageView *imageViewBackup;
+
 @end
 
 @implementation REMenuTableViewController
@@ -32,7 +34,9 @@
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
         imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        imageView.image = [UIImage imageNamed:@"avatar.jpg"];
+        imageView.image = [UIImage imageNamed:@"user"];
+        [self setUserImage:imageView];//Setting User Image
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.layer.masksToBounds = YES;
         imageView.layer.cornerRadius = 50.0;
         imageView.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -55,6 +59,34 @@
     });
 }
 
+- (void) setUserImage:(UIImageView *)imageView{
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * object, NSError *error) {
+        if (!error) {
+            // Found
+            PFFile *file = [object objectForKey:@"Image"];
+            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (!error) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    // image can now be set on a UIImageView
+                    imageView.image = image;
+                    self.imageViewBackup = imageView;
+                }
+            }];
+
+        } else {
+            // Did not find for the current user
+            UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error adding the item to the list. Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [error show];
+        }
+    }];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [self setUserImage:self.imageViewBackup];
+}
+
 #pragma mark -
 #pragma mark UITableView Delegate
 
@@ -65,7 +97,7 @@
     cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17];
 }
 
-/*- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
 {
     if (sectionIndex == 0)
         return nil;
@@ -74,7 +106,7 @@
     view.backgroundColor = [UIColor colorWithRed:167/255.0f green:167/255.0f blue:167/255.0f alpha:0.6f];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 8, 0, 0)];
-    label.text = @"Friends Online";
+    label.text = @"More";
     label.font = [UIFont systemFontOfSize:15];
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor clearColor];
@@ -82,7 +114,7 @@
     [view addSubview:label];
     
     return view;
-}*/
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)sectionIndex
 {
@@ -125,8 +157,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //return 2;
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
@@ -145,12 +176,12 @@
     }
     
     if (indexPath.section == 0) {
-        NSArray *titles = @[@"Wall", @"Contacts", @"User"];
+        NSArray *titles = @[@"Wall", @"Contacts", @"Me"];
         cell.textLabel.text = titles[indexPath.row];
-    } /*else {
-        NSArray *titles = @[@"John Appleseed", @"John Doe", @"Test User"];
+    } else {
+        NSArray *titles = @[@"Help", @"Contact", @"Rate"];
         cell.textLabel.text = titles[indexPath.row];
-    }*/
+    }
     
     return cell;
 }

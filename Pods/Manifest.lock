@@ -1,15 +1,18 @@
 PODS:
   - Bolts (1.1.2)
+  - MBProgressHUD (0.9)
   - Parse (1.4.0):
     - Bolts (~> 1.1.2)
   - REFrostedViewController (2.4.7)
 
 DEPENDENCIES:
+  - MBProgressHUD (~> 0.8)
   - Parse
   - REFrostedViewController (~> 2.4.7)
 
 SPEC CHECKSUMS:
   Bolts: 2635e8698a630774689441047f3465d78c48d485
+  MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   Parse: 217a57ed13e870a744fe746fcc01a3fef6a9b750
   REFrostedViewController: 08870a24788191339608b80b2bd4fce549858f0d
 

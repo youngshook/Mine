@@ -44,6 +44,8 @@
             }
         }];
     }
+    
+    //UPDATING
     else if (self.updatingObject){
         PFQuery *query = [PFQuery queryWithClassName:@"Items"];
         [query whereKey:@"User" equalTo:self.userForLabel];

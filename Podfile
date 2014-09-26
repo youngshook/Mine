@@ -5,6 +5,7 @@ target "Mine" do
 
 pod 'Parse'
 pod 'REFrostedViewController', '~> 2.4.7'
+pod 'MBProgressHUD', '~> 0.8'
 
 end
 

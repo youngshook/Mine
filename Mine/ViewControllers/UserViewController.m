@@ -13,10 +13,17 @@
 @interface UserViewController ()
 
 @property (nonatomic) BOOL segue;
+@property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *entriesLabel;
+@property (strong, nonatomic) IBOutlet UILabel *contactsLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) IBOutlet UIButton *logOutButton;
+@property (strong, nonatomic) UIImageView *imageViewBackup;
 
 @end
 
 @implementation UserViewController
+
 #pragma mark - Buttons
 
 - (IBAction)showMenu:(UIBarButtonItem *)sender {
@@ -54,13 +61,69 @@
 }
 
 
+
 #pragma mark - System
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.segue = NO;
     // Do any additional setup after loading the view.
+    self.imageView.image = [UIImage imageNamed:@"user"];
+    [self initialConfig];
+    [self setUserImage:self.imageView];
+    self.logOutButton.backgroundColor = [UIColor redColor];
+    self.logOutButton.alpha = 0.5;
 }
+
+- (void)initialConfig{
+    self.segue = NO;
+    self.usernameLabel.text = [PFUser currentUser].username;
+    self.contactsLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)[[[PFUser currentUser] objectForKey:@"Contacts"] count]];
+    PFQuery *query = [PFQuery queryWithClassName:@"Items"];
+    [query whereKey:@"User" equalTo:[PFUser currentUser].username];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            self.entriesLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[objects count]];
+        }
+        else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+
+}
+
+- (void) setUserImage:(UIImageView *)imageView{
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * object, NSError *error) {
+        if (!error) {
+            // Found
+            PFFile *file = [object objectForKey:@"Image"];
+            [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                if (!error) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    // image can now be set on a UIImageView
+                    imageView.image = image;
+                }
+            }];
+            
+        } else {
+            // Did not find for the current user
+            UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error adding the item to the list. Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [error show];
+        }
+    }];
+    
+    self.imageView.layer.cornerRadius = self.imageView.frame.size.width / 2;
+    self.imageView.clipsToBounds = YES;
+    self.imageView.layer.borderWidth = 2.0f;
+    self.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [self setUserImage:self.imageView];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

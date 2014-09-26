@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "765C33246C54494E9935937D"
-               BuildableName = "libPods-Mine-Bolts.a"
-               BlueprintName = "Pods-Mine-Bolts"
+               BlueprintIdentifier = "80C9FF5EF1E2411EAD77ABCF"
+               BuildableName = "libPods-Mine-MBProgressHUD.a"
+               BlueprintName = "Pods-Mine-MBProgressHUD"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
