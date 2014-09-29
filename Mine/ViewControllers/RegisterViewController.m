@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *userRegistrationTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordRegistrationTextField;
 @property (strong, nonatomic) IBOutlet UITextField *repeatPasswordRegistrationTextField;
+@property (strong, nonatomic) IBOutlet UITextField *emailRegistrationField;
 @property (nonatomic) BOOL segue;
 
 @end
@@ -26,6 +27,7 @@
             PFUser *user = [PFUser user];
             user.username = self.userRegistrationTextField.text;
             user.password = self.passwordRegistrationTextField.text;
+            user.email = self.emailRegistrationField.text;
             [user setObject:@[user.username] forKey:@"Contacts"];
         
             [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){

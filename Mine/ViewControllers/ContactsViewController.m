@@ -2,11 +2,12 @@
 //  ContactsViewController.m
 //  Mine
 //
-//  Created by Pol Quintana on 26/09/14.
+//  Created by Pol Quintana on 29/09/14.
 //  Copyright (c) 2014 Pol Quintana. All rights reserved.
 //
 
 #import "ContactsViewController.h"
+#import <Parse/Parse.h>
 
 @interface ContactsViewController ()
 
@@ -15,9 +16,6 @@
 @implementation ContactsViewController
 
 #pragma mark - ButtonActions
-
-
-
 - (IBAction)showMenu:(UIBarButtonItem *)sender {
     // Dismiss keyboard (optional)
     //
@@ -29,149 +27,35 @@
     [self.frostedViewController presentMenuViewController];
 }
 
-/*- (IBAction)logOutButton:(UIBarButtonItem *)sender {
- 
- UIAlertView *logOut = [[UIAlertView alloc]initWithTitle:@"Do you want to Log Out?" message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Log Out", nil];
- [logOut show];
- 
- }
- 
- //LogOut Verification
- 
- - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
- if (buttonIndex == 1){
- [PFUser logOut];
- [self.navigationController popViewControllerAnimated:YES];
- }
- }
- */
-
-- (IBAction)addItemButton:(UIBarButtonItem *)sender {
+- (IBAction)addContactButton:(UIBarButtonItem *)sender {
+    UIAlertView *addContact = [[UIAlertView alloc] initWithTitle:@"Add a Contact" message:@"Type the username of the contact you want to add" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
+    [addContact setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    [addContact show];
+    
 }
 
+#pragma mark - Parse Query
 
-#pragma mark - Parse TableViewController
-
-- (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style className:@"Items"];
-    if (self) {
-        // This table displays items in the Todo class
-        self.pullToRefreshEnabled = YES;
-        self.paginationEnabled = NO;
-        self.objectsPerPage = 25;
-    }
-    return self;
-}
-
-- (PFQuery *)queryForTable {
-    PFQuery *query = [PFQuery queryWithClassName:@"Items"];
-    //    [query whereKey:@"User" equalTo:[PFUser currentUser].username];
-    [query whereKey:@"User" containedIn:[[PFUser currentUser] objectForKey:@"Contacts"]];
-    // If no objects are loaded in memory, we look to the cache
-    // first to fill the table and then subsequently do a query
-    // against the network.
-    if ([self.objects count] == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    }
-    
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[self.objects count]];
-    
-    [query orderByDescending:@"createdAt"];
-    
-    return query;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath
-                        object:(PFObject *)object {
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                      reuseIdentifier:CellIdentifier];
-    }
-    
-    // Configure the cell to show todo item with a priority at the bottom
-    NSString *currentUser = [NSString stringWithFormat:@"%@", [PFUser currentUser].username];
-    NSString *otherUser = [NSString stringWithFormat:@"%@", [object objectForKey:@"User"]];
-    NSString *detailText;
-    BOOL isEqual = [currentUser isEqualToString:otherUser];
-    
-    if(isEqual){
-        detailText = [NSString stringWithFormat:@"Date: %@",[object objectForKey:@"Date"]];
-    }
-    else{
-        detailText = [NSString stringWithFormat:@"Item from another user: %@ | Date: %@",[object objectForKey:@"User"], [object objectForKey:@"Date"]];
-    }
-    
-    cell.textLabel.text = [object objectForKey:@"Title"];
-    cell.detailTextLabel.text = detailText;
-    
-    return cell;
-}
-
-#pragma mark - Prepare for Segue
-/*
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
-    
-    if ([segue.identifier isEqualToString:@"Cell Detail"]) {
-        if ([segue.destinationViewController isKindOfClass:[DetailViewController class]]) {
-            DetailViewController *dvc = (DetailViewController *)segue.destinationViewController;
-            PFObject *objectAtRow = [self.objects objectAtIndex:[self.tableView indexPathForSelectedRow].row];
-            
-            dvc.titleForLabel = [objectAtRow objectForKey:@"Title"];
-            dvc.dateForLabel = [objectAtRow objectForKey:@"Date"];
-            dvc.descriptionForLabel = [objectAtRow objectForKey:@"Description"];
-            dvc.userForLabel = [objectAtRow objectForKey:@"User"];
-            
+/*- (void)contactsFromParseToArray{
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (!error) {
+            self.contactsArray = [object valueForKey:@"Contacts"];
         }
-    }
-    else if ([segue.identifier isEqualToString:@"Add Item"]){
-        if ([segue.destinationViewController isKindOfClass:[AddViewController class]]) {
-            AddViewController *avc = (AddViewController *)segue.destinationViewController;
-            
-            avc.updatingObject = NO;
-        }
-        
-    }
-}
-*/
+    }];
+    
+}*/
 
 #pragma mark - System
 
--(void)updateUI{
-    [self loadObjects];
-    
-    PFQuery *query = [PFQuery queryWithClassName:@"Items"];
-    [query whereKey:@"User" containedIn:[[PFUser currentUser] objectForKey:@"Contacts"]];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[objects count]];
-        }
-        else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];
-}
-
--(void)askForPermissions{
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self.navigationItem setHidesBackButton:YES];//Deletes Back button
-    [self askForPermissions];
-}
-
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self updateUI];
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -179,14 +63,74 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*-(void) viewWillDisappear:(BOOL)animated {
- if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
- // back button was pressed.  We know this is true because self is no longer
- // in the navigation stack.
- [self updateUI];
- }
- [super viewWillDisappear:animated];
- }
- */
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+#warning Potentially incomplete method implementation.
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+#warning Incomplete method implementation.
+    // Return the number of rows in the section.
+    return [self.contacts count];
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Contacts Cell" forIndexPath:indexPath];
+    
+    // Configure the cell...
+    
+    cell.textLabel.text = [self.contacts objectAtIndex:indexPath.row];
+    
+    return cell;
+}
+
+
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

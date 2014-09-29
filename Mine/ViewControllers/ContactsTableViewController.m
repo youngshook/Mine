@@ -1,21 +1,18 @@
 //
-//  WallTableViewController.m
+//  ContactsTableViewController.m
 //  Mine
 //
-//  Created by Pol Quintana on 24/09/14.
+//  Created by Pol Quintana on 29/09/14.
 //  Copyright (c) 2014 Pol Quintana. All rights reserved.
 //
 
-#import "WallTableViewController.h"
-#import "DetailViewController.h"
-#import "AddViewController.h"
-#import <Parse/Parse.h>
+#import "ContactsTableViewController.h"
 
-@interface WallTableViewController ()
+@interface ContactsTableViewController ()
 
 @end
 
-@implementation WallTableViewController
+@implementation ContactsTableViewController
 
 #pragma mark - ButtonActions
 - (IBAction)showMenu:(UIBarButtonItem *)sender {
@@ -27,9 +24,6 @@
     // Present the view controller
     //
     [self.frostedViewController presentMenuViewController];
-}
-
-- (IBAction)addItemButton:(UIBarButtonItem *)sender {
 }
 
 
@@ -47,8 +41,9 @@
 }
 
 - (PFQuery *)queryForTable {
-    PFQuery *query = [PFQuery queryWithClassName:@"Items"];
-    [query whereKey:@"User" containedIn:[[PFUser currentUser] objectForKey:@"Contacts"]];
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
+    [query includeKey:@"Contacts"];
     // If no objects are loaded in memory, we look to the cache
     // first to fill the table and then subsequently do a query
     // against the network.
@@ -75,7 +70,7 @@
     }
     
     // Configure the cell to show todo item with a priority at the bottom
-    NSString *currentUser = [NSString stringWithFormat:@"%@", [PFUser currentUser].username];
+    /*NSString *currentUser = [NSString stringWithFormat:@"%@", [PFUser currentUser].username];
     NSString *otherUser = [NSString stringWithFormat:@"%@", [object objectForKey:@"User"]];
     NSString *detailText;
     BOOL isEqual = [currentUser isEqualToString:otherUser];
@@ -85,45 +80,20 @@
     }
     else{
         detailText = [NSString stringWithFormat:@"Item from another user: %@ | Date: %@",[object objectForKey:@"User"], [object objectForKey:@"Date"]];
-    }
+    }*/
     
-    cell.textLabel.text = [object objectForKey:@"Title"];
-    cell.detailTextLabel.text = detailText;
+    NSArray *arrayForContacts = [object objectForKey:@"Contacts"];
+    NSLog(@"Count:%lu \n%@", (unsigned long)[arrayForContacts count], arrayForContacts);
+    cell.textLabel.text = [arrayForContacts objectAtIndex:indexPath.row];
+   // cell.textLabel.text = [object objectForKey:@"Title"];
+   // cell.detailTextLabel.text =
     
     return cell;
 }
 
-#pragma mark - Prepare for Segue
-
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
-    
-    if ([segue.identifier isEqualToString:@"Cell Detail"]) {
-        if ([segue.destinationViewController isKindOfClass:[DetailViewController class]]) {
-            DetailViewController *dvc = (DetailViewController *)segue.destinationViewController;
-            PFObject *objectAtRow = [self.objects objectAtIndex:[self.tableView indexPathForSelectedRow].row];
-            
-            dvc.titleForLabel = [objectAtRow objectForKey:@"Title"];
-            dvc.dateForLabel = [objectAtRow objectForKey:@"Date"];
-            dvc.descriptionForLabel = [objectAtRow objectForKey:@"Description"];
-            dvc.userForLabel = [objectAtRow objectForKey:@"User"];
-            
-        }
-    }
-    else if ([segue.identifier isEqualToString:@"Add Item"]){
-        if ([segue.destinationViewController isKindOfClass:[AddViewController class]]) {
-            AddViewController *avc = (AddViewController *)segue.destinationViewController;
-            
-            avc.updatingObject = NO;
-        }
-
-    }
-}
-
-
 #pragma mark - System
 
--(void)updateUI{
+/*-(void)updateUI{
     [self loadObjects];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Items"];
@@ -137,34 +107,18 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-}
-
--(void)getContacts{
-    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        if (!error) {
-          //  contactsArray = [object valueForKey:@"Contacts"];
-        }
-    }];
-}
-
--(void)askForPermissions{
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-}
+}*/
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.navigationItem setHidesBackButton:YES];//Deletes Back button
-    [self askForPermissions];
-    [self getContacts];
+    //[self askForPermissions];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self updateUI];
+    //[self updateUI];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -180,6 +134,6 @@
  }
  [super viewWillDisappear:animated];
  }
-*/
+ */
 
 @end

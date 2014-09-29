@@ -16,6 +16,7 @@
 @interface REMenuTableViewController ()
 
 @property (nonatomic, strong) UIImageView *imageViewBackup;
+@property (nonatomic, strong) NSArray *contactsArray;
 
 @end
 
@@ -24,6 +25,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self contactsFromParseToArray];
     
     self.tableView.separatorColor = [UIColor colorWithRed:150/255.0f green:161/255.0f blue:177/255.0f alpha:1.0f];
     self.tableView.delegate = self;
@@ -140,6 +142,7 @@
     else if (indexPath.section == 0 && indexPath.row == 1){
          ContactsViewController *secondViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"secondController"];
         navigationController.viewControllers = @[secondViewController];
+        secondViewController.contacts = self.contactsArray;
     }
     else if (indexPath.section == 0 && indexPath.row ==2){
         UserViewController *thirdViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"thirdController"];
@@ -150,6 +153,17 @@
     [self.frostedViewController hideMenuViewController];
 }
 
+- (void)contactsFromParseToArray{
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (!error) {
+            self.contactsArray = [object valueForKey:@"Contacts"];
+        }
+    }];
+
+    
+}
 
 #pragma mark -
 #pragma mark UITableView Datasource
@@ -180,7 +194,7 @@
     }
     
     if (indexPath.section == 0) {
-        NSArray *titles = @[@"Wall", @"Contacts", @"Me"];
+        NSArray *titles = @[@"Wall", @"Contacts", @"Config"];
         cell.textLabel.text = titles[indexPath.row];
     } else {
         NSArray *titles = @[@"Help", @"Contact", @"Rate"];

@@ -149,7 +149,11 @@
                                 <action selector="showMenu:" destination="Jhb-CN-w5C" id="QEt-rY-2Wz"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Add Contact" style="done" id="ydr-Cn-clH"/>
+                        <barButtonItem key="rightBarButtonItem" title="Add Contact" style="done" id="ydr-Cn-clH">
+                            <connections>
+                                <action selector="addContactButton:" destination="Jhb-CN-w5C" id="IZj-cD-EmE"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
@@ -227,6 +231,12 @@
                                 </state>
                                 <connections>
                                     <action selector="imageButtonToActionSheet:" destination="uzY-gG-PLO" eventType="touchUpInside" id="VbG-CE-zBf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Czn-D9-sfz">
+                                <rect key="frame" x="278" y="346" width="22" height="22"/>
+                                <connections>
+                                    <segue destination="Jhb-CN-w5C" kind="show" id="G7c-jh-hCv"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -477,23 +487,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SP9-6D-bNx">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SP9-6D-bNx">
                                 <rect key="frame" x="66" y="153" width="188" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2PD-uT-dDk">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2PD-uT-dDk">
                                 <rect key="frame" x="66" y="191" width="188" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jh1-VM-5Ne">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repeat Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jh1-VM-5Ne">
                                 <rect key="frame" x="66" y="229" width="188" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yFf-3M-opg">
+                                <rect key="frame" x="66" y="267" width="188" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDg-2p-2tB">
-                                <rect key="frame" x="132" y="267" width="57" height="30"/>
+                                <rect key="frame" x="132" y="323" width="57" height="30"/>
                                 <state key="normal" title="Register">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -507,6 +522,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Registration" id="3Rt-tn-dh3"/>
                     <connections>
+                        <outlet property="emailRegistrationField" destination="yFf-3M-opg" id="3XY-bo-KHw"/>
                         <outlet property="passwordRegistrationTextField" destination="2PD-uT-dDk" id="bvc-ko-fam"/>
                         <outlet property="repeatPasswordRegistrationTextField" destination="jh1-VM-5Ne" id="WCi-cK-QTg"/>
                         <outlet property="userRegistrationTextField" destination="SP9-6D-bNx" id="LSR-v2-mhL"/>
@@ -521,6 +537,7 @@
         <image name="menu-icon" width="33" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="GIe-je-DNz"/>
         <segue reference="5wu-oM-O6P"/>
         <segue reference="QzT-6R-u2V"/>
     </inferredMetricsTieBreakers>
