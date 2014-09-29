@@ -35,7 +35,6 @@
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
         imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         imageView.image = [UIImage imageNamed:@"user"];
-        [self setUserImage:imageView];//Setting User Image
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.layer.masksToBounds = YES;
         imageView.layer.cornerRadius = 50.0;
@@ -44,6 +43,7 @@
         imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
         imageView.layer.shouldRasterize = YES;
         imageView.clipsToBounds = YES;
+        self.imageViewBackup = imageView;
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
         label.text = [PFUser currentUser].username;
@@ -57,34 +57,38 @@
         [view addSubview:label];
         view;
     });
+    [self setUserImage];
 }
 
-- (void) setUserImage:(UIImageView *)imageView{
+- (void) setUserImage{
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query whereKey:@"username" equalTo:[PFUser currentUser].username];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject * object, NSError *error) {
         if (!error) {
             // Found
             PFFile *file = [object objectForKey:@"Image"];
+            if (!file) {
+                self.imageViewBackup.image = [UIImage imageNamed:@"user"];
+            }
             [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 if (!error) {
                     UIImage *image = [UIImage imageWithData:data];
                     // image can now be set on a UIImageView
-                    imageView.image = image;
-                    self.imageViewBackup = imageView;
+                    self.imageViewBackup.image = image;
                 }
             }];
 
         } else {
             // Did not find for the current user
-            UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error adding the item to the list. Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Error" message:@"There was an error uploading the image. Please try again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [error show];
         }
     }];
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [self setUserImage:self.imageViewBackup];
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self setUserImage];
 }
 
 #pragma mark -

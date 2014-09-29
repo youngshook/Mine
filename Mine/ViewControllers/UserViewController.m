@@ -9,6 +9,7 @@
 #import "UserViewController.h"
 #import <Parse/Parse.h>
 #import <REFrostedViewController.h>
+#import <MBProgressHUD.h>
 
 @interface UserViewController ()
 
@@ -19,10 +20,132 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UIButton *logOutButton;
 @property (strong, nonatomic) UIImageView *imageViewBackup;
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @end
 
 @implementation UserViewController
+
+#pragma mark - Image Preparation
+
+- (IBAction)imageButtonToActionSheet:(UIButton *)sender {
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove Photo" otherButtonTitles:@"Choose from Library", @"Take a Photo", nil];
+    
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self removeImage];
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.hud.mode = MBProgressHUDModeIndeterminate;
+        self.hud.labelText = @"Removing";
+        [self.hud show:YES];
+    }
+    else if (buttonIndex == 1) {
+        [self chooseImageFromLibrary];
+    }
+    if (buttonIndex == 2) {
+        [self takeAPhoto];
+    }
+}
+
+
+-(void)chooseImageFromLibrary{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+
+-(void)takeAPhoto{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    [self presentViewController:picker animated:YES completion:NULL];
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *selectedImage = info[UIImagePickerControllerEditedImage];
+    self.imageView.image = selectedImage;
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    self.hud.labelText = @"Uploading";
+    [self.hud show:YES];
+    [self uploadImageToParse];
+}
+
+#pragma mark - Upload Image to Parse code
+
+-(void)uploadImageToParse{
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * object, NSError *error) {
+        if (!error) {
+            // Save
+            
+            // Convert to JPEG with 50% quality
+            NSData* data = UIImageJPEGRepresentation(self.imageView.image, 0.5f);
+            PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
+            
+            // Save the image to Parse
+            [object setObject:imageFile forKey:@"Image"];
+            
+            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    
+                    // The image has now been uploaded to Parse. Associate it with a new object
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    NSLog(@"Item uploaded");
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                else{
+                    // Error
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];
+        }
+    }];
+    
+    
+}
+
+- (void)removeImage{
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * object, NSError *error) {
+        if (!error) {
+            [object removeObjectForKey:@"Image"];
+            
+            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    
+                    // The image has now been uploaded to Parse. Associate it with a new object
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    NSLog(@"Item deleted");
+                    self.imageView.image = [UIImage imageNamed:@"user"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                else{
+                    // Error
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                    UIAlertView *added = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Could not remove the image. Please try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [added show];
+                }
+            }];
+        }
+    }];
+
+}
+
 
 #pragma mark - Buttons
 
@@ -121,7 +244,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [self setUserImage:self.imageView];
+    //[self setUserImage:self.imageView];
 }
 
 

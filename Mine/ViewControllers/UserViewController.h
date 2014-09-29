@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserViewController : UIViewController
+@interface UserViewController : UIViewController <UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 - (IBAction)showMenu:(UIBarButtonItem *)sender;
 
