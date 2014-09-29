@@ -197,10 +197,14 @@
     self.logOutButton.alpha = 0.5;
 }
 
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self initialConfig];
+}
+
 - (void)initialConfig{
     self.segue = NO;
     self.usernameLabel.text = [PFUser currentUser].username;
-    self.contactsLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)[[[PFUser currentUser] objectForKey:@"Contacts"] count]];
     PFQuery *query = [PFQuery queryWithClassName:@"Items"];
     [query whereKey:@"User" equalTo:[PFUser currentUser].username];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -210,6 +214,14 @@
         else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+    PFQuery *query2 = [PFQuery queryWithClassName:@"_User"];
+    [query2 whereKey:@"username" equalTo:[PFUser currentUser].username];
+    [query2 getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if(!error){
+            NSArray *contacts = [object objectForKey:@"Contacts"];
+            self.contactsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[contacts count]];
         }
     }];
 
@@ -242,11 +254,6 @@
     self.imageView.layer.borderWidth = 2.0f;
     self.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
 }
-
--(void)viewDidAppear:(BOOL)animated{
-    //[self setUserImage:self.imageView];
-}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

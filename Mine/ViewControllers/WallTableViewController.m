@@ -81,10 +81,10 @@
     BOOL isEqual = [currentUser isEqualToString:otherUser];
     
     if(isEqual){
-        detailText = [NSString stringWithFormat:@"Date: %@",[object objectForKey:@"Date"]];
+        detailText = [NSString stringWithFormat:@"%@",[object objectForKey:@"Date"]];
     }
     else{
-        detailText = [NSString stringWithFormat:@"Item from another user: %@ | Date: %@",[object objectForKey:@"User"], [object objectForKey:@"Date"]];
+        detailText = [NSString stringWithFormat:@"From another user: %@ | %@",[object objectForKey:@"User"], [object objectForKey:@"Date"]];
     }
     
     cell.textLabel.text = [object objectForKey:@"Title"];
@@ -124,29 +124,31 @@
 #pragma mark - System
 
 -(void)updateUI{
-    [self loadObjects];
-    
     PFQuery *query = [PFQuery queryWithClassName:@"Items"];
     [query whereKey:@"User" containedIn:[[PFUser currentUser] objectForKey:@"Contacts"]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[objects count]];
+            [self clear];
+            [self loadObjects];
         }
         else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-}
-
--(void)getContacts{
-    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        if (!error) {
-          //  contactsArray = [object valueForKey:@"Contacts"];
+    
+    /*PFQuery *query2 = [PFQuery queryWithClassName:@"Items"];
+    [query2 whereKey:@"User" containedIn:[[PFUser currentUser] objectForKey:@"Contacts"]];
+    [query2 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+        if(!error){
+            self.objects = objects;
         }
-    }];
+        else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];*/
 }
 
 -(void)askForPermissions{
@@ -159,10 +161,9 @@
     // Do any additional setup after loading the view.
     [self.navigationItem setHidesBackButton:YES];//Deletes Back button
     [self askForPermissions];
-    [self getContacts];
 }
 
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self updateUI];
 }

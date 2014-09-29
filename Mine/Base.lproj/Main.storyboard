@@ -233,7 +233,7 @@
                                     <action selector="imageButtonToActionSheet:" destination="uzY-gG-PLO" eventType="touchUpInside" id="VbG-CE-zBf"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Czn-D9-sfz">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Czn-D9-sfz">
                                 <rect key="frame" x="278" y="346" width="22" height="22"/>
                                 <connections>
                                     <segue destination="Jhb-CN-w5C" kind="show" id="G7c-jh-hCv"/>
@@ -241,6 +241,11 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Czn-D9-sfz"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="LEq-AC-Odu">
                         <barButtonItem key="leftBarButtonItem" image="menu-icon" id="d0Z-tX-1xC">
@@ -537,7 +542,7 @@
         <image name="menu-icon" width="33" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GIe-je-DNz"/>
+        <segue reference="G7c-jh-hCv"/>
         <segue reference="5wu-oM-O6P"/>
         <segue reference="QzT-6R-u2V"/>
     </inferredMetricsTieBreakers>

@@ -91,6 +91,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self setUserImage];
+    [self contactsFromParseToArray];
 }
 
 #pragma mark -

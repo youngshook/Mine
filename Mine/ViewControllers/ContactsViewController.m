@@ -34,6 +34,52 @@
     
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        UITextField *textField = [alertView textFieldAtIndex:0];
+        [self addContactToParseUser:textField.text];
+        
+    }
+}
+
+- (void)addContactToParseUser:(NSString *)userName{    
+    PFQuery *queryExists = [PFQuery queryWithClassName:@"_User"];
+    [queryExists whereKey:@"username" equalTo:userName];
+    [queryExists getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if (object) {
+            PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+            [query whereKey:@"username" equalTo:[PFUser currentUser].username];
+            [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                if (!error) {
+                    NSMutableArray *array = [object objectForKey:@"Contacts"];
+                    if (![userName isEqualToString:@""]) [array addObject:userName];
+                    NSArray *arrayCopy = [array copy];
+                    self.contacts = arrayCopy;
+                    [object setObject:arrayCopy forKey:@"Contacts"];
+                    [object saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
+                        if (!error) {
+                            UIAlertView *contactAdded = [[UIAlertView alloc] initWithTitle:@"Contact Added" message:[NSString stringWithFormat:@"%@ has been added to your contacts", userName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                            [contactAdded show];
+                            
+                            [self.tableView reloadData];
+                        }
+                    }];
+                }
+                else{
+                    [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                }
+            }];
+        }
+        else {
+            UIAlertView *nothingFound = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"The user %@ does not exist", userName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [nothingFound show];
+        }
+     
+    }];
+}
+
+
+
 #pragma mark - Parse Query
 
 /*- (void)contactsFromParseToArray{
@@ -58,6 +104,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -66,13 +113,11 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [self.contacts count];
 }
