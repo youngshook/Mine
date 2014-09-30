@@ -107,8 +107,14 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        NSLog(@"StyleDelete");
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        NSLog(@"BLABLABLABLA %@", cell.textLabel.text);
+        
+        //[self.contacts removeObjectAtIndex:indexPath.row];
+        //[self deleteUser];
+        
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadData];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         NSLog(@"StyleInsert");
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -180,6 +186,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.navigationItem setHidesBackButton:YES];//Deletes Back button
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
     [self askForPermissions];
 }
 

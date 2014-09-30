@@ -36,12 +36,12 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
         UITextField *textField = [alertView textFieldAtIndex:0];
-        [self updateContactToParseUser:textField.text];
+        [self updateContactToParseUser:textField.text delete:NO];
         
     }
 }
 
-- (void)updateContactToParseUser:(NSString *)userName{
+- (void)updateContactToParseUser:(NSString *)userName delete:(BOOL)delete{
     PFQuery *queryExists = [PFQuery queryWithClassName:@"_User"];
     [queryExists whereKey:@"username" equalTo:userName];
     [queryExists getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
@@ -52,7 +52,7 @@
                 if (!error) {
                     NSMutableArray *array = [object objectForKey:@"Contacts"];
                     if (![userName isEqualToString:@""]) [array addObject:userName];
-                    self.contacts = array;
+                    if(!delete) self.contacts = array;
                     [object setObject:self.contacts forKey:@"Contacts"];
                     [object saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
                         if (!error) {
@@ -73,27 +73,6 @@
             [nothingFound show];
         }
      
-    }];
-}
-
-- (void) deleteUser{
-    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (!error) {
-            [object setObject:self.contacts forKey:@"Contacts"];
-            [object saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
-                if (!error) {
-                    UIAlertView *contactAdded = [[UIAlertView alloc] initWithTitle:@"Contact Deleted" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                    [contactAdded show];
-                    
-                    [self.tableView reloadData];
-                }
-            }];
-        }
-        else{
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
     }];
 }
 
@@ -151,8 +130,10 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        NSString *user = cell.textLabel.text;
         [self.contacts removeObjectAtIndex:indexPath.row];
-        [self deleteUser];
+        [self updateContactToParseUser:user delete:YES];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView reloadData];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
