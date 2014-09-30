@@ -11,7 +11,7 @@
 
 @interface ContactsViewController : UITableViewController
 
-@property (nonatomic, strong) NSArray *contacts;
+@property (nonatomic, strong) NSMutableArray *contacts;
 
 - (IBAction)showMenu:(UIBarButtonItem *)sender;
 

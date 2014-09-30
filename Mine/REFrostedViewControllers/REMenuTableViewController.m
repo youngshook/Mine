@@ -16,7 +16,7 @@
 @interface REMenuTableViewController ()
 
 @property (nonatomic, strong) UIImageView *imageViewBackup;
-@property (nonatomic, strong) NSArray *contactsArray;
+@property (nonatomic, strong) NSMutableArray *contactsArray;
 
 @end
 

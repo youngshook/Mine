@@ -18,7 +18,6 @@
 		C161A6E519D1D63B008F2680 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6E419D1D63B008F2680 /* WelcomeViewController.m */; };
 		C161A6E819D1DBFA008F2680 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6E719D1DBFA008F2680 /* RegisterViewController.m */; };
 		C16AF7D819D9A93200D35193 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16AF7D719D9A93200D35193 /* ContactsViewController.m */; };
-		C16AF7DB19D9B43300D35193 /* ContactsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16AF7DA19D9B43300D35193 /* ContactsTableViewController.m */; };
 		C1B53C3219D1EB22002FFA5C /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B53C3119D1EB22002FFA5C /* AddViewController.m */; };
 		C1B9C38819D5774700714422 /* RERootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9C38719D5774700714422 /* RERootViewController.m */; };
 		C1B9C38E19D5785600714422 /* RENavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B9C38D19D5785600714422 /* RENavigationViewController.m */; };
@@ -60,8 +59,6 @@
 		C161A6E719D1DBFA008F2680 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegisterViewController.m; path = ViewControllers/RegisterViewController.m; sourceTree = "<group>"; };
 		C16AF7D619D9A93200D35193 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsViewController.h; path = ViewControllers/ContactsViewController.h; sourceTree = "<group>"; };
 		C16AF7D719D9A93200D35193 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsViewController.m; path = ViewControllers/ContactsViewController.m; sourceTree = "<group>"; };
-		C16AF7D919D9B43300D35193 /* ContactsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsTableViewController.h; path = ViewControllers/ContactsTableViewController.h; sourceTree = "<group>"; };
-		C16AF7DA19D9B43300D35193 /* ContactsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsTableViewController.m; path = ViewControllers/ContactsTableViewController.m; sourceTree = "<group>"; };
 		C1B53C3019D1EB22002FFA5C /* AddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddViewController.h; path = ViewControllers/AddViewController.h; sourceTree = "<group>"; };
 		C1B53C3119D1EB22002FFA5C /* AddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddViewController.m; path = ViewControllers/AddViewController.m; sourceTree = "<group>"; };
 		C1B9C38619D5774700714422 /* RERootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RERootViewController.h; path = REFrostedViewControllers/RERootViewController.h; sourceTree = "<group>"; };
@@ -182,8 +179,6 @@
 				C1B9C39919D58A5D00714422 /* UserViewController.m */,
 				C16AF7D619D9A93200D35193 /* ContactsViewController.h */,
 				C16AF7D719D9A93200D35193 /* ContactsViewController.m */,
-				C16AF7D919D9B43300D35193 /* ContactsTableViewController.h */,
-				C16AF7DA19D9B43300D35193 /* ContactsTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -354,7 +349,6 @@
 				C1B9C39119D57D6700714422 /* REMenuTableViewController.m in Sources */,
 				C161A6E519D1D63B008F2680 /* WelcomeViewController.m in Sources */,
 				C161A6BD19D1D2E5008F2680 /* AppDelegate.m in Sources */,
-				C16AF7DB19D9B43300D35193 /* ContactsTableViewController.m in Sources */,
 				C1B53C3219D1EB22002FFA5C /* AddViewController.m in Sources */,
 				C1B9C38819D5774700714422 /* RERootViewController.m in Sources */,
 				C161A6BA19D1D2E5008F2680 /* main.m in Sources */,
