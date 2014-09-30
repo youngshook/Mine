@@ -211,6 +211,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self performSelector: @selector(queryForTable)];
     [self loadObjects];
     [self updateUI];
 }
