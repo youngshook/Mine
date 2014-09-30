@@ -101,24 +101,55 @@
     return YES;
 }
 
-
-
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        NSLog(@"BLABLABLABLA %@", cell.textLabel.text);
-        
-        //[self.contacts removeObjectAtIndex:indexPath.row];
-        //[self deleteUser];
-        
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView reloadData];
+        [self deleteItemFromParse:cell.textLabel.text];
+        //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         NSLog(@"StyleInsert");
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
+}
+
+- (void)deleteItemFromParse:(NSString *)titleOfTheItem{
+    PFQuery *query = [PFQuery queryWithClassName:@"Items"];
+    [query whereKey:@"User" containedIn:[[PFUser currentUser] objectForKey:@"Contacts"]];
+    [query whereKey:@"Title" equalTo:titleOfTheItem];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
+        if(!error){
+            NSString *owner = [object objectForKey:@"User"];
+            if (![owner isEqualToString:[PFUser currentUser].username]) {
+                UIAlertView *notYourItem = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You cannot delete the Item. You are not the owner of the Item." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [notYourItem show];
+                self.tableView.editing = NO;
+            }
+            else{
+                [object deleteInBackgroundWithBlock:^(BOOL succeded, NSError *error){
+                    if (!error) {
+                        [self loadObjects];
+                        [self.tableView reloadData];
+                        UIAlertView *added = [[UIAlertView alloc]initWithTitle:@"Item deleted" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+                        [added show];
+                        [self performSelector:@selector(dismiss:) withObject:added afterDelay:2];
+                    }
+                    else{
+                        NSLog(@"Error: %@ %@", error, [error userInfo]);
+                    }
+                    
+                }];
+            }
+        }
+        else{
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
+
+-(void) dismiss:(UIAlertView *)alert{
+    [alert dismissWithClickedButtonIndex:-1 animated:YES];
 }
 
 #pragma mark - Prepare for Segue
@@ -163,18 +194,6 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-    
-    /*PFQuery *query2 = [PFQuery queryWithClassName:@"Items"];
-    [query2 whereKey:@"User" containedIn:[[PFUser currentUser] objectForKey:@"Contacts"]];
-    [query2 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
-        if(!error){
-            self.objects = objects;
-        }
-        else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];*/
 }
 
 -(void)askForPermissions{

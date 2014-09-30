@@ -16,7 +16,7 @@
 @interface REMenuTableViewController ()
 
 @property (nonatomic, strong) UIImageView *imageViewBackup;
-@property (nonatomic, strong) NSMutableArray *contactsArray;
+@property (nonatomic, strong) NSArray *contactsArray;
 
 @end
 
@@ -143,7 +143,7 @@
     else if (indexPath.section == 0 && indexPath.row == 1){
          ContactsViewController *secondViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"secondController"];
         navigationController.viewControllers = @[secondViewController];
-        secondViewController.contacts = self.contactsArray;
+        secondViewController.contacts = [self.contactsArray mutableCopy];
     }
     else if (indexPath.section == 0 && indexPath.row ==2){
         UserViewController *thirdViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"thirdController"];
