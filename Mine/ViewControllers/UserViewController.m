@@ -163,6 +163,8 @@
 - (IBAction)logOutButton:(UIButton *)sender {
     UIAlertView *logOut = [[UIAlertView alloc]initWithTitle:@"Do you want to Log Out?" message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Log Out", nil];
     [logOut show];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"username"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password"];
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender

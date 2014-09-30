@@ -8,29 +8,39 @@
 
 #import "WelcomeViewController.h"
 #import <Parse/Parse.h>
+#import <MBProgressHUD.h>
 
 @interface WelcomeViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *userTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (nonatomic) BOOL segue;
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutlet UISwitch *rememberMeSwitch;
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @end
 
 @implementation WelcomeViewController
 
 - (IBAction)signInButton:(id)sender {
-    [self.activityIndicator startAnimating];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    self.hud.labelText = @"Signing In...";
+    [self.hud show:YES];
     
     [PFUser logInWithUsernameInBackground:self.userTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error){
         if (!error) {
-            [self.activityIndicator stopAnimating];
+            if (self.rememberMeSwitch.on == YES) {
+                [defaults setObject:self.userTextField.text forKey:@"username"];
+                [defaults setObject:self.passwordTextField.text forKey:@"password"];
+            }
+            [self.hud show:NO];
             [self performSegueWithIdentifier:@"SignIn OK" sender:self];
         }
         else{
             [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             self.segue = NO;
-            [self.activityIndicator stopAnimating];
         }
         
     }];
@@ -51,6 +61,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSUserDefaults *fetchDefaults = [NSUserDefaults standardUserDefaults];
+    
+    self.userTextField.text = [fetchDefaults objectForKey:@"username"];
+    self.passwordTextField.text = [fetchDefaults objectForKey:@"password"];
+    if([self.userTextField.text length]>0){
+        self.rememberMeSwitch.on = YES;
+        [self signInButton:self];
+        
+    }
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
