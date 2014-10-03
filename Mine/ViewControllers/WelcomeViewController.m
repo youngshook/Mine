@@ -41,6 +41,7 @@
         else{
             [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
             self.segue = NO;
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
         
     }];

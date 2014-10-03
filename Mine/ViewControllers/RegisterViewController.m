@@ -80,6 +80,7 @@
     [self.userRegistrationTextField resignFirstResponder];
     [self.passwordRegistrationTextField resignFirstResponder];
     [self.repeatPasswordRegistrationTextField resignFirstResponder];
+    [self.emailRegistrationField resignFirstResponder];
     
 }
 
