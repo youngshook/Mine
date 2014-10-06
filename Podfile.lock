@@ -4,16 +4,19 @@ PODS:
   - Parse (1.4.0):
     - Bolts (~> 1.1.2)
   - REFrostedViewController (2.4.7)
+  - WYPopoverController (0.2.2)
 
 DEPENDENCIES:
   - MBProgressHUD (~> 0.8)
   - Parse
   - REFrostedViewController (~> 2.4.7)
+  - WYPopoverController (~> 0.2.2)
 
 SPEC CHECKSUMS:
   Bolts: 2635e8698a630774689441047f3465d78c48d485
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   Parse: 217a57ed13e870a744fe746fcc01a3fef6a9b750
   REFrostedViewController: 08870a24788191339608b80b2bd4fce549858f0d
+  WYPopoverController: c233d69fdfd5c7e316b481df1060624d7a9e629d
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.1

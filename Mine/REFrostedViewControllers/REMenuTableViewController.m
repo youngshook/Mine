@@ -25,7 +25,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self contactsFromParseToArray];
+    [self updateContacts];
     
     self.tableView.separatorColor = [UIColor colorWithRed:150/255.0f green:161/255.0f blue:177/255.0f alpha:1.0f];
     self.tableView.delegate = self;
@@ -91,7 +91,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self setUserImage];
-    [self contactsFromParseToArray];
+    [self updateContacts];
 }
 
 #pragma mark -
@@ -154,16 +154,27 @@
     [self.frostedViewController hideMenuViewController];
 }
 
-- (void)contactsFromParseToArray{
+- (void)updateContacts{
     PFQuery *query = [PFQuery queryWithClassName:@"_User"];
     [query whereKey:@"username" equalTo:[PFUser currentUser].username];
-    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        if (!error) {
-            self.contactsArray = [object valueForKey:@"Contacts"];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *userObject, NSError *error){
+        if(!error){
+            PFQuery *queryGetContacts = [PFQuery queryWithClassName:@"Relations"];
+            [queryGetContacts whereKey:@"username" equalTo:[PFUser currentUser].username];
+            [queryGetContacts getFirstObjectInBackgroundWithBlock:^(PFObject *relationsObject, NSError *error){
+                if(!error){
+                    NSArray *updateArray = [relationsObject objectForKey:@"Contacts"];
+                    self.contactsArray = updateArray;
+                    [userObject setObject:updateArray forKey:@"Contacts"];
+                    [userObject saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
+                        if(!error){
+                            NSLog(@"Updated succesfully");
+                        }
+                    }];
+                }
+            }];
         }
     }];
-
-    
 }
 
 #pragma mark -

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6356FCF7250845718F4ED4BF /* libPods-Mine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8840D143D1A9437096DB431F /* libPods-Mine.a */; };
 		C1271A8919D335EA00BC03FB /* WallTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1271A8819D335EA00BC03FB /* WallTableViewController.m */; };
+		C127348119E04EE600556CB7 /* PopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C127348019E04EE600556CB7 /* PopOverViewController.m */; };
 		C161A6BA19D1D2E5008F2680 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6B919D1D2E5008F2680 /* main.m */; };
 		C161A6BD19D1D2E5008F2680 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A6BC19D1D2E5008F2680 /* AppDelegate.m */; };
 		C161A6C319D1D2E5008F2680 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C161A6C119D1D2E5008F2680 /* Main.storyboard */; };
@@ -37,10 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1FE22DD572CA8D6934D9E77C /* Pods-Mine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mine/Pods-Mine.release.xcconfig"; sourceTree = "<group>"; };
 		8840D143D1A9437096DB431F /* libPods-Mine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC52192AAD88441DAACD07D1 /* Pods-Mine.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mine.xcconfig"; path = "Pods/Pods-Mine.xcconfig"; sourceTree = "<group>"; };
 		C1271A8719D335EA00BC03FB /* WallTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WallTableViewController.h; path = ViewControllers/WallTableViewController.h; sourceTree = "<group>"; };
 		C1271A8819D335EA00BC03FB /* WallTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WallTableViewController.m; path = ViewControllers/WallTableViewController.m; sourceTree = "<group>"; };
+		C127347F19E04EE600556CB7 /* PopOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PopOverViewController.h; path = PopOver/PopOverViewController.h; sourceTree = "<group>"; };
+		C127348019E04EE600556CB7 /* PopOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PopOverViewController.m; path = PopOver/PopOverViewController.m; sourceTree = "<group>"; };
 		C161A6B419D1D2E5008F2680 /* Mine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C161A6B819D1D2E5008F2680 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C161A6B919D1D2E5008F2680 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -71,6 +74,7 @@
 		C1B9C39919D58A5D00714422 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserViewController.m; path = ViewControllers/UserViewController.m; sourceTree = "<group>"; };
 		C1CC411119D448EC00DE749A /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ViewControllers/DetailViewController.h; sourceTree = "<group>"; };
 		C1CC411219D448EC00DE749A /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ViewControllers/DetailViewController.m; sourceTree = "<group>"; };
+		F9169C3EFF9E8E44F3CE6346 /* Pods-Mine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mine/Pods-Mine.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7496C44DC215008A28611404 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F9169C3EFF9E8E44F3CE6346 /* Pods-Mine.debug.xcconfig */,
+				1FE22DD572CA8D6934D9E77C /* Pods-Mine.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C127347E19E04EBF00556CB7 /* PopOver */ = {
+			isa = PBXGroup;
+			children = (
+				C127347F19E04EE600556CB7 /* PopOverViewController.h */,
+				C127348019E04EE600556CB7 /* PopOverViewController.m */,
+			);
+			name = PopOver;
+			sourceTree = "<group>";
+		};
 		C161A6AB19D1D2E5008F2680 = {
 			isa = PBXGroup;
 			children = (
@@ -99,8 +121,8 @@
 				C161A6B619D1D2E5008F2680 /* Mine */,
 				C161A6D019D1D2E5008F2680 /* MineTests */,
 				C161A6B519D1D2E5008F2680 /* Products */,
-				AC52192AAD88441DAACD07D1 /* Pods-Mine.xcconfig */,
 				C400DB9C7D7342798B2D794C /* Frameworks */,
+				7496C44DC215008A28611404 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,9 +138,9 @@
 		C161A6B619D1D2E5008F2680 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				C127347E19E04EBF00556CB7 /* PopOver */,
 				C1B9C38519D576DE00714422 /* REFrostedViewControllers */,
 				C161A6DF19D1D30D008F2680 /* ViewControllers */,
-				C161A6DD19D1D2EE008F2680 /* Model */,
 				C161A6BB19D1D2E5008F2680 /* AppDelegate.h */,
 				C161A6BC19D1D2E5008F2680 /* AppDelegate.m */,
 				C161A6C119D1D2E5008F2680 /* Main.storyboard */,
@@ -153,13 +175,6 @@
 				C161A6D219D1D2E5008F2680 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C161A6DD19D1D2EE008F2680 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Model;
 			sourceTree = "<group>";
 		};
 		C161A6DF19D1D30D008F2680 /* ViewControllers */ = {
@@ -319,7 +334,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-Mine-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mine/Pods-Mine-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BCBACC1D0AD9445D8D5FA8E0 /* Check Pods Manifest.lock */ = {
@@ -346,6 +361,7 @@
 			files = (
 				C1B9C38E19D5785600714422 /* RENavigationViewController.m in Sources */,
 				C16AF7D819D9A93200D35193 /* ContactsViewController.m in Sources */,
+				C127348119E04EE600556CB7 /* PopOverViewController.m in Sources */,
 				C1B9C39119D57D6700714422 /* REMenuTableViewController.m in Sources */,
 				C161A6E519D1D63B008F2680 /* WelcomeViewController.m in Sources */,
 				C161A6BD19D1D2E5008F2680 /* AppDelegate.m in Sources */,
@@ -475,7 +491,7 @@
 		};
 		C161A6D819D1D2E5008F2680 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC52192AAD88441DAACD07D1 /* Pods-Mine.xcconfig */;
+			baseConfigurationReference = F9169C3EFF9E8E44F3CE6346 /* Pods-Mine.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Mine/Info.plist;
@@ -486,7 +502,7 @@
 		};
 		C161A6D919D1D2E5008F2680 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC52192AAD88441DAACD07D1 /* Pods-Mine.xcconfig */;
+			baseConfigurationReference = 1FE22DD572CA8D6934D9E77C /* Pods-Mine.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Mine/Info.plist;

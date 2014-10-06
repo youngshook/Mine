@@ -1,12 +1,8 @@
 Mine
 ========
----------------
 
 
-
-From my humble knowledge I would like to share this project with everybody.
-
-Feel free to use it.
+From my humble knowledge I would like to share this project with you.
 
 **Features:**
 
@@ -49,11 +45,11 @@ ViewControllers:
 	* Image Upload/Change/Remove
 	* Log Out button
 	
-**Preparation**
+**How to try it**
 
 You need a Parse acount (It is Free). Then, when you create a new app on Parse you have to write down the **APPLICATION_ID** and **CLIENT_KEY**
 
-Now, download this project, and create a Header File that must be like in the photo below. Here you are going to put your **APPLICATION_ID** and **CLIENT_KEY** in order to configure your app.
+Now, download this project, and create a Header File that must be like in the photo below. Here you are going to put your **APPLICATION_ID** and **CLIENT_KEY** in order to configure the app.
 
 ![alt text] [id1]
 

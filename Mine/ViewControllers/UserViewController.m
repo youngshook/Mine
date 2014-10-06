@@ -205,25 +205,29 @@
 }
 
 - (void)initialConfig{
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    [self.hud show:YES];
     self.segue = NO;
     self.usernameLabel.text = [PFUser currentUser].username;
     PFQuery *query = [PFQuery queryWithClassName:@"Items"];
-    [query whereKey:@"User" equalTo:[PFUser currentUser].username];
+    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.entriesLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[objects count]];
+            PFQuery *query2 = [PFQuery queryWithClassName:@"_User"];
+            [query2 whereKey:@"username" equalTo:[PFUser currentUser].username];
+            [query2 getFirstObjectInBackgroundWithBlock:^(PFObject *object2, NSError *error2){
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                if(!error2){
+                    NSArray *contacts = [object2 objectForKey:@"Contacts"];
+                    self.contactsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[contacts count]];
+                }
+            }];
         }
         else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];
-    PFQuery *query2 = [PFQuery queryWithClassName:@"_User"];
-    [query2 whereKey:@"username" equalTo:[PFUser currentUser].username];
-    [query2 getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        if(!error){
-            NSArray *contacts = [object objectForKey:@"Contacts"];
-            self.contactsLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[contacts count]];
         }
     }];
 

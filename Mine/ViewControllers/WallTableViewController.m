@@ -48,7 +48,7 @@
 
 - (PFQuery *)queryForTable {
     PFQuery *query = [PFQuery queryWithClassName:@"Items"];
-    [query whereKey:@"User" containedIn:[[PFUser currentUser] objectForKey:@"Contacts"]];
+    [query whereKey:@"username" containedIn:[[PFUser currentUser] objectForKey:@"Contacts"]];
     // If no objects are loaded in memory, we look to the cache
     // first to fill the table and then subsequently do a query
     // against the network.
@@ -76,7 +76,7 @@
     
     // Configure the cell to show todo item with a priority at the bottom
     NSString *currentUser = [NSString stringWithFormat:@"%@", [PFUser currentUser].username];
-    NSString *otherUser = [NSString stringWithFormat:@"%@", [object objectForKey:@"User"]];
+    NSString *otherUser = [NSString stringWithFormat:@"%@", [object objectForKey:@"username"]];
     NSString *detailText;
     BOOL isEqual = [currentUser isEqualToString:otherUser];
     
@@ -84,7 +84,7 @@
         detailText = [NSString stringWithFormat:@"%@",[object objectForKey:@"Date"]];
     }
     else{
-        detailText = [NSString stringWithFormat:@"From another user: %@ | %@",[object objectForKey:@"User"], [object objectForKey:@"Date"]];
+        detailText = [NSString stringWithFormat:@"From another user: %@ | %@",[object objectForKey:@"username"], [object objectForKey:@"Date"]];
     }
     
     cell.textLabel.text = [object objectForKey:@"Title"];
@@ -207,12 +207,35 @@
     [self.navigationItem setHidesBackButton:YES];//Deletes Back button
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     [self askForPermissions];
+    [self updateContacts];
+}
+
+- (void)updateContacts{
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *userObject, NSError *error){
+        if(!error){
+            PFQuery *queryGetContacts = [PFQuery queryWithClassName:@"Relations"];
+            [queryGetContacts whereKey:@"username" equalTo:[PFUser currentUser].username];
+            [queryGetContacts getFirstObjectInBackgroundWithBlock:^(PFObject *relationsObject, NSError *error){
+                if(!error){
+                    NSArray *updateArray = [relationsObject objectForKey:@"Contacts"];
+                    [userObject setObject:updateArray forKey:@"Contacts"];
+                    [userObject saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
+                        if(!error){
+                            NSLog(@"Updated succesfully");
+                        }
+                    }];
+                }
+            }];
+        }
+    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self performSelector: @selector(queryForTable)];
-    [self loadObjects];
+    [self loadObjects:0 clear:YES];
     [self updateUI];
 }
 

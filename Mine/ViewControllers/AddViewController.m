@@ -8,12 +8,14 @@
 
 #import "AddViewController.h"
 #import <Parse/Parse.h>
+#import <MBProgressHUD.h>
 
 @interface AddViewController ()
 
 @property (strong, nonatomic) IBOutlet UITextField *titleTextField;
 @property (strong, nonatomic) IBOutlet UITextField *dateTextField;
 @property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @end
 
@@ -22,16 +24,22 @@
 #pragma mark - button
 
 - (IBAction)saveItemOnParse:(UIBarButtonItem *)sender {
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
     
     //SAVING!!!
     if(!self.updatingObject){
+        [self.hud show:YES];
+        self.hud.labelText = @"Adding";
+        
         PFObject *itemToAdd = [PFObject objectWithClassName:@"Items"];
         [itemToAdd setObject:self.titleTextField.text forKey:@"Title"];
         [itemToAdd setObject:self.dateTextField.text forKey:@"Date"];
         [itemToAdd setObject:self.descriptionTextView.text forKey:@"Description"];
-        [itemToAdd setObject:[PFUser currentUser].username forKey:@"User"];
+        [itemToAdd setObject:[PFUser currentUser].username forKey:@"username"];
         
         [itemToAdd saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             if (!error) {
                 NSLog(@"Item added");
                 [self.navigationController popViewControllerAnimated:YES];
@@ -47,12 +55,16 @@
     
     //UPDATING
     else if (self.updatingObject){
+        [self.hud show:YES];
+        self.hud.labelText = @"Updating";
+        
         PFQuery *query = [PFQuery queryWithClassName:@"Items"];
-        [query whereKey:@"User" equalTo:self.userForLabel];
+        [query whereKey:@"username" equalTo:self.userForLabel];
         [query whereKey:@"Title" equalTo:self.titleForLabel];
         [query whereKey:@"Date" equalTo:self.dateForLabel];
         [query whereKey:@"Description" equalTo:self.descriptionForLabel];
         [query getFirstObjectInBackgroundWithBlock:^(PFObject * object, NSError *error) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             if (!error) {
                 // Found UserStats
                 [object setObject:self.titleTextField.text forKey:@"Title"];

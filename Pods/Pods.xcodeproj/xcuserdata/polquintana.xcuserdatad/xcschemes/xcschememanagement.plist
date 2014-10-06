@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Mine-WYPopoverController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Mine.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>765C33246C54494E9935937D</key>
+		<key>61BF2BD0A2F8C39C0004738C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>80C9FF5EF1E2411EAD77ABCF</key>
+		<key>8059F9B41E53607139CC6248</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9877BE585867483B83D9EF87</key>
+		<key>8F03F439BF23A7A4B56490D3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EEC07D7CE29A49F38D549632</key>
+		<key>A986F3E2E62BD7EA4AE21EF2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FDBA9AC0C6484091B177465B</key>
+		<key>BEB45AC206DE6E3352583A88</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F48B71369C91B9D20A9F4EB6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

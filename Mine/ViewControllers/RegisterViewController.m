@@ -8,6 +8,7 @@
 
 #import "RegisterViewController.h"
 #import <Parse/Parse.h>
+#import <MBProgressHUD.h>
 
 @interface RegisterViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *userRegistrationTextField;
@@ -15,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *repeatPasswordRegistrationTextField;
 @property (strong, nonatomic) IBOutlet UITextField *emailRegistrationField;
 @property (nonatomic) BOOL segue;
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @end
 
@@ -22,19 +24,31 @@
 
 - (IBAction)registerButton:(id)sender {
     
-    if ([self.passwordRegistrationTextField.text isEqualToString:self.repeatPasswordRegistrationTextField.text]) {
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    self.hud.labelText = @"Signing Up...";
     
+    if ([self.passwordRegistrationTextField.text isEqualToString:self.repeatPasswordRegistrationTextField.text]) {
+            [self.hud show:YES];
             PFUser *user = [PFUser user];
             user.username = self.userRegistrationTextField.text;
             user.password = self.passwordRegistrationTextField.text;
             user.email = self.emailRegistrationField.text;
-            [user setObject:@[user.username] forKey:@"Contacts"];
         
             [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
                 if(!error){
-                    [self performSegueWithIdentifier:@"SignUp OK" sender:self];
+                    PFObject *userRelation = [PFObject objectWithClassName:@"Relations"];
+                    [userRelation setObject:self.userRegistrationTextField.text forKey:@"username"];
+                    [userRelation setObject:@[self.userRegistrationTextField.text] forKey:@"Contacts"];
+                    [userRelation saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
+                        [self.hud show:NO];
+                        if(!error){
+                            [self performSegueWithIdentifier:@"SignUp OK" sender:self];
+                        }
+                    }];
                 }
                 else{
+                    [self.hud show:NO];
                     [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
                     self.segue = NO;
                 }

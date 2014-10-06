@@ -8,8 +8,16 @@
 
 #import "ContactsViewController.h"
 #import <Parse/Parse.h>
+#import <WYPopoverController.h>
+#import "PopOverViewController.h"
 
-@interface ContactsViewController ()
+@interface ContactsViewController () <WYPopoverControllerDelegate>
+{
+    WYPopoverController *popoverController;
+}
+
+@property (nonatomic, strong) NSMutableArray *requestsArray;
+
 @end
 
 @implementation ContactsViewController
@@ -26,53 +34,71 @@
     [self.frostedViewController presentMenuViewController];
 }
 
-- (IBAction)addContactButton:(UIBarButtonItem *)sender {
-    UIAlertView *addContact = [[UIAlertView alloc] initWithTitle:@"Add a Contact" message:@"Type the username of the contact you want to add" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Add", nil];
-    [addContact setAlertViewStyle:UIAlertViewStylePlainTextInput];
-    [addContact show];
+#pragma mark - Prepare PopOver
+
+- (IBAction)addContactButton:(id)sender {
+    
+    UIView *button = (UIView *)sender;
+    
+    PopOverViewController *requestsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Requests"];
+    requestsViewController.requestsArray = self.requestsArray;
+    
+    UINavigationController *contentViewController = [[UINavigationController alloc] initWithRootViewController:requestsViewController];
+    contentViewController.viewControllers = @[requestsViewController];
+    
+    popoverController = [[WYPopoverController alloc] initWithContentViewController:contentViewController];
+    popoverController.delegate = self;
+    
+    [popoverController presentPopoverFromRect:button.bounds inView:button permittedArrowDirections:WYPopoverArrowDirectionAny animated:YES];
+
     
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1) {
-        UITextField *textField = [alertView textFieldAtIndex:0];
-        [self updateContactToParseUser:textField.text delete:NO];
-        
-    }
+- (BOOL)popoverControllerShouldDismissPopover:(WYPopoverController *)aPopoverController
+{
+    return YES;
 }
 
-- (void)updateContactToParseUser:(NSString *)userName delete:(BOOL)delete{
-    PFQuery *queryExists = [PFQuery queryWithClassName:@"_User"];
-    [queryExists whereKey:@"username" equalTo:userName];
-    [queryExists getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error){
-        if (object) {
-            PFQuery *query = [PFQuery queryWithClassName:@"_User"];
-            [query whereKey:@"username" equalTo:[PFUser currentUser].username];
-            [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+#pragma mark - Update Array
+
+- (void)updateContactToParseUser:(NSString *)userName{
+    PFQuery *queryForUserName = [PFQuery queryWithClassName:@"Relations"];
+    [queryForUserName whereKey:@"username" equalTo:userName];
+    [queryForUserName getFirstObjectInBackgroundWithBlock:^(PFObject *objectFromUser, NSError *errorFromUser){
+        if (!errorFromUser) {
+            NSMutableArray *arrayFromUser = [objectFromUser objectForKey:@"Contacts"];
+            NSUInteger index = [arrayFromUser indexOfObject:[PFUser currentUser].username];
+            if(index != 0) [arrayFromUser removeObjectAtIndex:index]; //Prevent from deleting itself
+            [objectFromUser setObject:arrayFromUser forKey:@"Contacts"];
+            [objectFromUser saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
                 if (!error) {
-                    NSMutableArray *array = [object objectForKey:@"Contacts"];
-                    if (![userName isEqualToString:@""]) [array addObject:userName];
-                    if(!delete) self.contacts = array;
-                    [object setObject:self.contacts forKey:@"Contacts"];
-                    [object saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
-                        if (!error) {
-                            UIAlertView *contactAdded = [[UIAlertView alloc] initWithTitle:@"Contact Added" message:[NSString stringWithFormat:@"%@ has been added to your contacts", userName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                            [contactAdded show];
+                    //Let's delete the user from our contacts array
+                    PFQuery *query = [PFQuery queryWithClassName:@"Relations"];
+                    [query whereKey:@"username" equalTo:[PFUser currentUser].username];
+                    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error2){
+                        if(!error2){
+                            //We have our self.contacts updated
+                            [object setObject:self.contacts forKey:@"Contacts"];
+                            [object saveInBackgroundWithBlock:^(BOOL succeded3, NSError *error3){
+                                if (!error3) {
+                                    NSString *title = @"Contact Deleted";
+                                    NSString *message = [NSString stringWithFormat:@"%@ has been deleted from your contacts", userName];
+                                    UIAlertView *contactAdded = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                                    [contactAdded show];
+                                    
+                                    [self.tableView reloadData];
+                                }
+                                else{
+                                    UIAlertView *nothingFound = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"The user %@ does not exist", userName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                                    [nothingFound show];
+                                }
+                            }];
                             
-                            [self.tableView reloadData];
                         }
                     }];
                 }
-                else{
-                    [[[UIAlertView alloc] initWithTitle:@"Error" message:[error userInfo][@"error"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                }
             }];
         }
-        else {
-            UIAlertView *nothingFound = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"The user %@ does not exist", userName] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [nothingFound show];
-        }
-     
     }];
 }
 
@@ -85,7 +111,25 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self getRequests];
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
+}
+
+- (void)getRequests{
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"Requests" equalTo:[PFUser currentUser].username];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+        if (!error) {
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (PFObject *object in objects) {
+                NSString *user = [object objectForKey:@"username"];
+                [array addObject:user];
+            }
+            self.requestsArray = array;
+            NSLog(@"%@", [self.requestsArray description]);
+        }
+    }];
+    
 }
 
 
@@ -113,7 +157,7 @@
     // Configure the cell...
     
     cell.textLabel.text = [self.contacts objectAtIndex:indexPath.row];
-    
+ 
     return cell;
 }
 
@@ -133,7 +177,7 @@
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         NSString *user = cell.textLabel.text;
         [self.contacts removeObjectAtIndex:indexPath.row];
-        [self updateContactToParseUser:user delete:YES];
+        [self updateContactToParseUser:user];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView reloadData];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
