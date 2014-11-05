@@ -1,7 +1,7 @@
 Mine
 ========
 
-##(Atention: The project is outdated, I will migrate it to an MVC pattern when possible)
+##(Atention: The project is outdated, I will migrate it to an MVC pattern when I have time)
 
 
 From my humble knowledge I would like to share this project with you.
