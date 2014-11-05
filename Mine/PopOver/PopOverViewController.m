@@ -160,11 +160,14 @@
     
     cell.textLabel.text = [self.requestsArray objectAtIndex:indexPath.row];
     
-    cell.
-    
     //Add Button
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @"Friend Requests";
 }
 
 // Override to support conditional editing of the table view.
